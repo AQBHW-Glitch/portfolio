@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新视界 · 视觉传达设计</title>
+<style>
+/* ===== Reset ===== */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'PingFang SC','Microsoft YaHei','Heiti SC','Noto Sans CJK SC',sans-serif;
+  background:var(--bg);color:#2F2D2A;line-height:1.9;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased
+}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* ===== Variables ===== */
+:root{
+  --bg:#F5F1EB;                    /* 暖白胚布 — 整体底色 */
+  --surface:#ffffff;                /* 白 — 卡片/浮层 */
+  --surface-alt:#FAF6F0;            /* 暖调 — 交替区背景 */
+  --border:#E2D9CC;                 /* 暖灰边框 */
+  --border-hover:#FFD176;           /* 金色边框 hover */
+  --ink:#2C2824;                    /* 暖黑 — 主文字 */
+  --ink-secondary:#7D7368;          /* 暖灰 — 次要文字 */
+  --ink-tertiary:#B0A597;           /* 浅暖灰 — 标签 */
+  --gold:#FFD176;                   /* 暖金 — 主色 */
+  --gold-hover:#E8B85A;
+  --gold-light:#FFF8EB;             /* 金色极浅版 */
+  --gold-deep:#C8A23E;              /* 深金 — 点缀 */
+  --img-bg:#F0EBE3;                 /* 图片空白区底色 */
+  --font-song:'STSong','Songti SC','SimSun','Noto Serif CJK SC',serif;
+  --font-hei:'PingFang SC','Microsoft YaHei','Heiti SC','Noto Sans CJK SC',sans-serif;
+  --font-en:'Helvetica Neue','Helvetica','Arial',sans-serif;
+  --container:1120px;--section-py:120px
+}
+
+/* ===== Page grain ===== */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:radial-gradient(rgba(47,45,42,0.03) 0.5px,transparent 0.5px);
+  background-size:24px 24px
+}
+
+.container{max-width:var(--container);margin:0 auto;padding:0 28px;position:relative;z-index:1}
+
+/* ===== Nav ===== */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;height:56px;
+  display:flex;align-items:center;
+  background:#ffffff;
+  border-bottom:1px solid var(--border);
+  box-shadow:0 1px 0 rgba(0,0,0,0.04)
+}
+nav .container{display:flex;justify-content:space-between;align-items:center;width:100%;padding:0 28px}
+.nav-brand{font-family:var(--font-song);font-size:16px;color:var(--ink);text-decoration:none;letter-spacing:0.12em;display:flex;align-items:center;gap:8px}
+.nav-brand .brand-marker{display:inline-block;width:6px;height:6px;background:var(--gold);vertical-align:middle}
+.nav-links{display:flex;gap:0;list-style:none;align-items:center}
+.nav-links li{display:flex;align-items:center}
+.nav-links a{
+  font-family:var(--font-en);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--ink-secondary);text-decoration:none;padding:8px 14px;
+  transition:color 0.25s;position:relative
+}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a::after{content:'';display:block;width:0;height:1px;background:var(--gold);margin:2px auto 0;transition:width 0.3s}
+.nav-links a:hover::after{width:100%}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;background:none;border:none;padding:6px}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--ink);transition:0.3s}
+
+/* ===== Hero ===== */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding:80px 0 40px;position:relative;overflow:hidden
+}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;min-height:70vh}
+.hero-left{position:relative;z-index:2;max-width:540px}
+.hero-label{
+  font-family:var(--font-en);font-size:11px;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--ink-tertiary);margin-bottom:28px;display:flex;align-items:center;gap:12px
+}
+.hero-label::before{content:'';display:inline-block;width:20px;height:1px;background:var(--gold)}
+.hero-left h1{
+  font-family:var(--font-song);font-size:clamp(56px,8vw,96px);font-weight:700;
+  color:var(--ink);line-height:1.1;letter-spacing:0.08em;margin-bottom:6px;
+  text-rendering:optimizeLegibility
+}
+.hero-left .sub-en{
+  font-family:var(--font-en);font-size:clamp(15px,1.6vw,21px);font-weight:300;
+  color:var(--ink-secondary);letter-spacing:0.25em;text-transform:uppercase;margin-bottom:28px;
+  word-spacing:0.05em
+}
+.hero-sep{width:28px;height:2px;background:var(--gold);margin:28px 0}
+.hero-left .tagline{
+  font-family:var(--font-song);font-size:clamp(15px,1.3vw,18px);
+  color:var(--ink-secondary);line-height:1.8;margin-bottom:36px;letter-spacing:0.02em
+}
+.hero-left .tagline strong{font-weight:600;color:var(--gold)}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+
+/* ===== Hero Layered Entrance ===== */
+.hero-left > *{
+  opacity:0;animation:heroLayerIn 0.7s cubic-bezier(0.22,1,0.36,1) forwards
+}
+.hero-left .hero-label{animation-delay:0.05s;transform:translateY(26px) scale(1.06)}
+.hero-left h1{animation-delay:0.18s;transform:translateY(22px) scale(1.04)}
+.hero-left .sub-en{animation-delay:0.28s;transform:translateY(18px) scale(1.02)}
+.hero-left .hero-sep{animation-delay:0.36s;transform:translateY(14px)}
+.hero-left .tagline{animation-delay:0.44s;transform:translateY(12px)}
+.hero-left .hero-cta{animation-delay:0.54s;transform:translateY(10px)}
+@keyframes heroLayerIn{
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--font-hei);font-size:13px;letter-spacing:0.1em;
+  padding:12px 32px;text-decoration:none;cursor:pointer;transition:all 0.3s;border-radius:2px
+}
+.btn-primary{background:var(--gold);color:var(--ink);border:1px solid var(--gold)}
+.btn-primary:hover{background:var(--gold-hover);border-color:var(--gold-hover);color:var(--ink)}
+.btn-outline{background:transparent;color:var(--ink);border:1px solid var(--border)}
+.btn-outline:hover{background:var(--ink);color:#fff}
+.hero-right{position:relative;display:flex;justify-content:center;align-items:center}
+.hero-right-empty{
+  width:100%;height:60vh;position:relative;
+  display:flex;align-items:flex-end;justify-content:flex-end
+}
+.hero-right-empty .deco-grid{
+  position:absolute;inset:0;
+  background-image:
+    radial-gradient(var(--ink) 1px,transparent 1px),
+    linear-gradient(to right,var(--ink) 0.5px,transparent 0.5px),
+    linear-gradient(to bottom,var(--ink) 0.5px,transparent 0.5px);
+  background-size:60px 60px,60px 60px,60px 60px;
+  opacity:0.1
+}
+.hero-right-empty .penrose-stairs{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  color:var(--ink);overflow:visible;pointer-events:none;
+  animation:stairsSketch 5s ease-out forwards
+}
+@keyframes stairsSketch{
+  0%{opacity:0;transform:scale(0.92)}
+  15%{opacity:1;transform:scale(0.97)}
+  40%{opacity:0.85;transform:scale(1)}
+  100%{opacity:0;transform:scale(1)}
+}
+.hero-right-empty .deco-dot{
+  position:absolute;top:30%;left:25%;
+  width:4px;height:4px;background:var(--gold);opacity:0.6
+}
+.hero-right-empty .deco-dot-2{
+  position:absolute;top:60%;left:65%;
+  width:6px;height:6px;background:var(--gold);opacity:0.5
+}
+.hero-right-empty .corner-accent{
+  position:absolute;bottom:0;right:0;
+  width:80px;height:80px;
+  border-right:2px solid var(--gold);
+  border-bottom:2px solid var(--gold);
+  opacity:0.7
+}
+
+/* ===== Sections ===== */
+section{padding:var(--section-py) 0;position:relative}
+.section-index{
+  font-family:var(--font-en);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--ink-tertiary);margin-bottom:12px;display:flex;align-items:center;gap:10px
+}
+.section-index::before{content:'';display:inline-block;width:16px;height:1px;background:var(--gold)}
+.section-title{
+  font-family:var(--font-song);font-size:clamp(28px,3.5vw,40px);font-weight:600;
+  color:var(--ink);line-height:1.3;letter-spacing:0.04em;margin-bottom:40px;
+  text-rendering:optimizeLegibility
+}
+
+/* ===== About ===== */
+.about-intro{max-width:680px;margin-bottom:56px}
+.about-intro .accent-line{width:24px;height:2px;background:var(--gold);margin-bottom:20px}
+.manifesto{display:grid;grid-template-columns:1fr;gap:40px 64px;margin-bottom:40px}
+.manifesto-block{border-top:1px solid var(--border);padding-top:24px}
+.manifesto-block .num{font-family:var(--font-en);font-size:11px;letter-spacing:0.08em;color:var(--ink-tertiary);margin-bottom:12px}
+.manifesto-block h3{font-family:var(--font-song);font-size:20px;font-weight:600;color:var(--ink);letter-spacing:0.02em;margin-bottom:10px}
+.manifesto-block h3 .highlight{color:var(--gold)}
+.manifesto-block p{font-size:14px;color:var(--ink);line-height:1.9}
+.manifesto-block .quote-block{
+  font-family:var(--font-song);font-size:16px;color:var(--ink);line-height:1.8;
+  padding:16px 0 16px 20px;border-left:2px solid var(--gold-deep);margin:12px 0
+}
+
+/* ===== Block Inner: Text + Icons side by side ===== */
+.manifesto-block .block-inner{display:flex;gap:40px}
+.manifesto-block .block-text,.manifesto-block .block-side{flex:1;min-width:0}
+.block-side{flex:1;display:flex;flex-direction:column}
+.block-side .side-icons{
+  position:relative;flex:1;width:100%
+}
+.neuron-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.neuron-svg path{fill:none;stroke:var(--gold);stroke-width:0.35;opacity:0.2}
+/* Neural node */
+.ni-item{
+  position:absolute;transform:translate(-50%,-50%);z-index:1;
+  display:flex;flex-direction:column;align-items:center;gap:3px
+}
+.ni-item .ni-node{
+  width:52px;height:52px;display:flex;align-items:center;justify-content:center;
+  background:var(--surface);border-radius:50%;border:1px solid var(--border);
+  transition:border-color 0.3s,box-shadow 0.3s;cursor:default
+}
+.ni-item:hover .ni-node{border-color:var(--gold);box-shadow:0 0 20px rgba(255,209,118,0.25)}
+.ni-item .ni-node img{width:28px;height:28px;object-fit:contain;display:block}
+.ni-item .ni-node .ni-ph{
+  font-family:var(--font-en);font-size:11px;font-weight:600;color:var(--ink-tertiary)
+}
+.ni-item .ni-label{
+  font-family:var(--font-en);font-size:9px;letter-spacing:0.02em;
+  color:var(--ink-tertiary);text-align:center;white-space:nowrap
+}
+/* Center node (Claude) slightly larger */
+.ni-item.center .ni-node{width:58px;height:58px;border-color:var(--gold);background:var(--gold-light)}
+.ni-item.center .ni-node img{width:32px;height:32px}
+
+/* ===== Neural Network Animation ===== */
+/* Line drawing + continuous breath */
+.side-icons .neuron-svg path{
+  stroke-dasharray:200;stroke-dashoffset:200;
+  animation:neuronDraw 0.8s cubic-bezier(0.22,1,0.36,1) 0.1s forwards,
+             neuronBreath 4s ease-in-out 1.2s infinite
+}
+@keyframes neuronDraw{to{stroke-dashoffset:0}}
+@keyframes neuronBreath{
+  0%,100%{opacity:0.12}
+  50%{opacity:0.3}
+}
+/* Node appear — 逐个出现 */
+.side-icons .ni-item{
+  opacity:0;animation:nodeAppear 0.4s cubic-bezier(0.22,1,0.36,1) forwards
+}
+@keyframes nodeAppear{
+  from{opacity:0;transform:translate(-50%,calc(-50% + 6px)) scale(0.88)}
+  to{opacity:1;transform:translate(-50%,-50%) scale(1)}
+}
+.side-icons > .ni-item:nth-child(2){animation-delay:0.30s} /* Claude 中心 */
+.side-icons > .ni-item:nth-child(3){animation-delay:0.38s} /* PS */
+.side-icons > .ni-item:nth-child(4){animation-delay:0.46s} /* Pr */
+.side-icons > .ni-item:nth-child(5){animation-delay:0.54s} /* GPT */
+.side-icons > .ni-item:nth-child(6){animation-delay:0.62s} /* AE */
+.side-icons > .ni-item:nth-child(7){animation-delay:0.70s} /* 即梦 */
+.side-icons > .ni-item:nth-child(8){animation-delay:0.78s} /* 剪映 */
+.side-icons > .ni-item:nth-child(9){animation-delay:0.86s} /* KIMI */
+.side-icons > .ni-item:nth-child(10){animation-delay:0.94s} /* 豆包 */
+/* Center node continuous glow — 所有节点出现后再亮起 */
+.side-icons .ni-item.center .ni-node{
+  animation:centerGlow 3s ease-in-out 1.3s infinite
+}
+@keyframes centerGlow{
+  0%,100%{box-shadow:0 0 0 rgba(255,209,118,0)}
+  50%{box-shadow:0 0 28px rgba(255,209,118,0.2)}
+}
+
+/* Neural animation reset — 离开视口时冻结，回来时重播 */
+.side-icons.nn-stopped .neuron-svg path,
+.side-icons.nn-stopped .ni-item,
+.side-icons.nn-stopped .ni-item .ni-node{
+  animation:none!important
+}
+.side-icons.nn-stopped .neuron-svg path{stroke-dashoffset:200}
+.side-icons.nn-stopped .ni-item{opacity:0}
+
+/* ===== Skills ===== */
+.skills-section{margin-top:48px;padding-top:32px;border-top:1px solid var(--border)}
+.skills-section .skills-label{
+  font-family:var(--font-en);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--ink-tertiary);margin-bottom:16px;display:flex;align-items:center;gap:10px
+}
+.skills-section .skills-label::before{content:'';display:inline-block;width:16px;height:1px;background:var(--gold)}
+.skills-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.skill-card{
+  padding:14px 16px;background:var(--surface);border:1px solid var(--border);
+  transition:border-color 0.3s,transform 0.3s
+}
+.skill-card:hover{transform:translateY(-2px);border-color:var(--gold)}
+.skill-card .skill-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.skill-card .skill-icon{
+  width:6px;height:6px;flex-shrink:0;
+  background:var(--gold)
+}
+.skill-card h4{font-family:var(--font-song);font-size:13px;color:var(--ink)}
+.skill-card p{font-size:11px;color:var(--ink-secondary);line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ===== Works: Tabs ===== */
+.tabs{display:flex;gap:0;margin-bottom:36px;border-bottom:1px solid var(--border)}
+.tab-btn{
+  font-family:var(--font-hei);font-size:13px;letter-spacing:0.06em;
+  padding:12px 24px;cursor:pointer;background:none;border:none;
+  color:var(--ink-tertiary);position:relative;transition:color 0.2s
+}
+.tab-btn::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform 0.3s}
+.tab-btn:hover{color:var(--ink)}
+.tab-btn.active{color:var(--ink)}
+.tab-btn.active::after{transform:scaleX(1)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* ===== Works: Card Grid ===== */
+.work-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+
+/* ===== Photo Masonry (瀑布流拼图) ===== */
+.photo-masonry{column-count:4;column-gap:16px}
+.photo-masonry .work-card{break-inside:avoid;margin:0 0 16px;overflow:hidden}
+.photo-masonry .work-card .card-image{height:auto;display:block;padding:0;background:var(--img-bg)}
+.photo-masonry .work-card .card-image img{width:100%;height:auto;display:block;object-fit:cover;transition:transform 0.5s}
+.photo-masonry .work-card:hover .card-image img{transform:scale(1.05)}
+
+/* Card image wrapper — fixed height, contain mode */
+.card-image{
+  position:relative;overflow:hidden;height:240px;
+  background:var(--img-bg);display:flex;align-items:center;justify-content:center
+}
+.card-image img{
+  width:100%;height:100%;object-fit:contain;display:block;
+  transition:transform 0.5s;padding:4px
+}
+.work-card{cursor:pointer;background:var(--surface);border:1px solid var(--border);transition:transform 0.4s,border-color 0.4s}
+.work-card:hover{transform:translateY(-3px);border-color:var(--gold)}
+
+/* Hover zoom only affects cover images, not contain images */
+.work-card[data-zoom="cover"] .card-image img{object-fit:cover;padding:0}
+.work-card[data-zoom="cover"]:hover .card-image img{transform:scale(1.05)}
+
+/* Overlay on hover */
+.work-card .card-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(47,45,42,0.75) 0%,transparent 55%);
+  display:flex;flex-direction:column;justify-content:flex-end;padding:20px;
+  opacity:0;transition:opacity 0.35s
+}
+.work-card:hover .card-overlay{opacity:1}
+.work-card .card-overlay .tt{font-family:var(--font-song);color:#fff;font-size:15px;font-weight:600}
+.work-card .card-overlay .st{color:rgba(255,255,255,0.65);font-size:12px;margin-top:3px}
+
+/* Badges */
+.work-card .play-badge{
+  position:absolute;top:12px;right:12px;width:34px;height:34px;
+  background:rgba(47,45,42,0.5);border:1px solid rgba(255,255,255,0.2);
+  display:flex;align-items:center;justify-content:center;color:#fff;
+  font-size:12px;font-family:var(--font-en);opacity:0;transition:opacity 0.35s
+}
+.work-card:hover .play-badge{opacity:1}
+.work-card .label-tag{
+  position:absolute;top:12px;left:12px;
+  font-family:var(--font-hei);font-size:10px;letter-spacing:0.05em;
+  padding:3px 10px;background:rgba(47,45,42,0.65);color:#fff;pointer-events:none
+}
+.work-card .placeholder-tag{
+  position:absolute;bottom:12px;left:50%;transform:translateX(-50%);
+  font-family:var(--font-hei);font-size:11px;letter-spacing:0.08em;
+  padding:4px 14px;background:rgba(47,45,42,0.55);color:rgba(255,255,255,0.8);pointer-events:none
+}
+.section-label{
+  font-family:var(--font-song);font-size:17px;color:var(--ink);
+  margin:36px 0 14px;letter-spacing:0.02em;padding-bottom:8px;
+  border-bottom:1px solid var(--border)
+}
+
+/* ===== Case Cards (AI 工作流) ===== */
+.case-grid{display:grid;gap:20px}
+.case-card{
+  display:grid;grid-template-columns:minmax(260px,340px) 1fr;gap:0;
+  background:var(--surface);border:1px solid var(--border);
+  cursor:pointer;transition:transform 0.4s,border-color 0.4s;
+  min-height:180px;overflow:hidden
+}
+.case-card:hover{transform:translateY(-3px);border-color:var(--gold)}
+.case-card .case-image{
+  position:relative;overflow:hidden;background:#fff;
+  display:flex;align-items:center;justify-content:center;
+  padding:16px
+}
+.case-card .case-image img{width:100%;height:auto;display:block}
+.case-card .case-content{
+  padding:20px 24px;display:flex;flex-direction:column;justify-content:center;
+  border-left:1px solid var(--border)
+}
+.case-card .case-content .case-cat{
+  font-family:var(--font-en);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--ink-tertiary);margin-bottom:6px
+}
+.case-card .case-content h3{
+  font-family:var(--font-song);font-size:17px;font-weight:600;color:var(--ink);
+  letter-spacing:0.02em;margin-bottom:8px;line-height:1.35
+}
+.case-card .case-content .case-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
+.case-card .case-content .case-tags span{
+  font-family:var(--font-hei);font-size:10px;letter-spacing:0.04em;
+  padding:2px 8px;background:var(--gold-light);color:var(--ink);border:1px solid transparent
+}
+.case-card .case-content p{font-size:13px;color:var(--ink-secondary);line-height:1.7}
+.case-card .case-content .case-more{
+  font-family:var(--font-en);font-size:11px;letter-spacing:0.08em;
+  color:var(--gold);margin-top:10px;display:flex;align-items:center;gap:4px
+}
+
+/* ===== Experience ===== */
+.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.exp-card{padding:36px;background:var(--surface);border:1px solid var(--border)}
+.exp-card .period{font-family:var(--font-en);font-size:11px;letter-spacing:0.06em;color:var(--gold);margin-bottom:8px}
+.exp-card h3{font-family:var(--font-song);font-size:20px;color:var(--ink);margin-bottom:4px}
+.exp-card .role{font-size:13px;color:var(--ink-secondary);margin-bottom:14px}
+.exp-card p{font-size:14px;color:var(--ink);line-height:1.8;margin-bottom:12px}
+.exp-card .stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+.exp-card .stat{
+  padding:12px 16px;background:var(--bg);border:1px solid var(--border);
+  text-align:center;flex:1;min-width:90px
+}
+.exp-card .stat .num{font-family:var(--font-en);font-size:20px;font-weight:500;color:var(--ink);display:block;letter-spacing:0.02em}
+.exp-card .stat .lbl{font-size:11px;color:var(--ink-secondary);margin-top:2px;line-height:1.4}
+/* Data link inside exp-card */
+.exp-data-link{
+  display:flex;align-items:center;gap:6px;
+  margin-top:14px;padding-top:12px;
+  border-top:1px solid var(--border);cursor:pointer;
+  font-family:var(--font-en);font-size:11px;letter-spacing:0.06em;
+  color:var(--ink-tertiary);transition:color 0.25s
+}
+.exp-data-link:hover{color:var(--gold)}
+.exp-data-link .edl-icon{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:16px;height:16px;border:1px solid currentColor;
+  font-size:13px;line-height:1;flex-shrink:0;
+  transition:background 0.25s,color 0.25s
+}
+.exp-data-link:hover .edl-icon{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.exp-data-link .edl-arrow{
+  margin-left:auto;font-size:12px;font-family:var(--font-en);
+  opacity:0;transition:opacity 0.25s,transform 0.25s
+}
+.exp-data-link:hover .edl-arrow{opacity:1;transform:translateX(3px)}
+/* ===== Awards ===== */
+.awards-grid{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.award-item{flex:1 1 310px;display:flex;gap:14px;padding:18px;background:var(--surface);border:1px solid var(--border);align-items:center;transition:border-color 0.25s}
+.award-item:hover{border-color:var(--gold)}
+.award-item .medal{
+  width:36px;height:36px;flex-shrink:0;display:flex;align-items:center;
+  justify-content:center;font-size:16px;font-family:var(--font-en);
+  border:1px solid var(--border);background:var(--bg);color:var(--ink-secondary)
+}
+.award-info h4{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.award-info .detail{font-size:12px;color:var(--ink-secondary)}
+.award-info .prize{font-size:12px;color:var(--gold);font-weight:500;margin-top:2px;letter-spacing:0.02em}
+
+/* ===== Contact ===== */
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.contact-item{
+  display:flex;align-items:center;gap:14px;padding:22px;
+  border:1px solid var(--border);text-decoration:none;color:var(--ink);
+  transition:border-color 0.25s;background:var(--surface)
+}
+.contact-item:hover{border-color:var(--gold);background:#fff}
+.contact-item .icon-box{
+  width:36px;height:36px;background:var(--surface-alt);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-en);font-size:13px;color:var(--ink-secondary);transition:all 0.25s
+}
+.contact-item:hover .icon-box{background:var(--gold);color:var(--ink)}
+.contact-item .lbl{font-family:var(--font-en);font-size:10px;color:var(--ink-secondary);letter-spacing:0.08em;text-transform:uppercase}
+.contact-item .val{font-size:14px;font-weight:500;margin-top:1px;font-family:var(--font-hei)}
+
+/* ===== Footer ===== */
+footer{
+  padding:56px 0 40px;border-top:1px solid var(--border);
+  text-align:center;background:var(--surface);
+  box-shadow:0 -1px 0 rgba(0,0,0,0.04)
+}
+footer .foot-marker{
+  width:24px;height:2px;background:var(--gold);margin:0 auto 16px
+}
+footer .phrase{font-family:var(--font-song);font-size:13px;color:var(--ink-tertiary);margin:4px 0 16px;letter-spacing:0.15em}
+footer p{font-size:12px;color:var(--ink-secondary)}
+
+/* ===== Detail Overlay — replaces lightbox ===== */
+.detail-overlay{
+  display:none;position:fixed;inset:0;z-index:200;
+  background:rgba(0,0,0,0.7);
+  justify-content:center;align-items:center;padding:24px;
+  animation:doFadeIn 0.25s ease
+}
+.detail-overlay.open{display:flex}
+@keyframes doFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes doScaleIn{from{opacity:0;transform:scale(0.94)}to{opacity:1;transform:scale(1)}}
+
+.detail-modal{
+  background:var(--surface);width:90%;max-width:1200px;
+  max-height:90vh;border-radius:3px;overflow:hidden;
+  position:relative;box-shadow:0 24px 64px rgba(0,0,0,0.35);
+  animation:doScaleIn 0.25s cubic-bezier(0.22,1,0.36,1)
+}
+.detail-close{
+  position:absolute;top:12px;right:12px;z-index:10;
+  width:32px;height:32px;display:flex;align-items:center;justify-content:center;
+  background:rgba(47,45,42,0.06);border:none;cursor:pointer;
+  font-family:var(--font-en);font-size:14px;color:var(--ink);transition:background 0.2s
+}
+.detail-close:hover{background:rgba(47,45,42,0.12)}
+.detail-body{
+  display:grid;grid-template-columns:minmax(360px,1fr) minmax(280px,380px);
+  max-height:90vh;overflow:hidden
+}
+
+/* Left: Image — sizes naturally, background adapts */
+.detail-image-section{
+  position:relative;background:var(--img-bg);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;min-height:320px
+}
+.detail-image-wrap{
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;width:100%
+}
+.detail-image-wrap img{
+  max-height:calc(90vh - 40px);max-width:100%;width:auto;height:auto;
+  object-fit:contain;display:block;user-select:none
+}
+.detail-image-nav{
+  position:absolute;bottom:12px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.85);
+  padding:3px 10px;border:1px solid var(--border)
+}
+.detail-image-nav .din-btn{
+  width:26px;height:26px;display:flex;align-items:center;justify-content:center;
+  background:none;border:1px solid var(--border);cursor:pointer;
+  font-family:var(--font-en);font-size:11px;color:var(--ink);transition:background 0.2s
+}
+.detail-image-nav .din-btn:hover{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.detail-image-nav .din-counter{
+  font-family:var(--font-en);font-size:11px;color:var(--ink-secondary);letter-spacing:0.05em;min-width:36px;text-align:center
+}
+
+/* Right: Info — scrollable panel */
+.detail-info-section{
+  padding:28px 28px 32px;display:flex;flex-direction:column;gap:0;
+  overflow-y:auto;border-left:1px solid var(--border);
+  background:var(--surface)
+}
+.detail-info-section .di-category{
+  font-family:var(--font-en);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:8px
+}
+.detail-info-section h3{
+  font-family:var(--font-song);font-size:20px;font-weight:600;color:var(--ink);
+  letter-spacing:0.04em;line-height:1.35;margin-bottom:6px
+}
+.detail-info-section .di-meta{
+  font-size:11px;color:var(--ink-tertiary);margin-bottom:16px;
+  font-family:var(--font-en);letter-spacing:0.04em
+}
+.di-divider{width:24px;height:2px;background:var(--gold);margin:0 0 18px;flex-shrink:0}
+.di-label{
+  font-family:var(--font-en);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--ink-tertiary);margin-bottom:4px
+}
+.detail-info-section .di-text{
+  font-size:13px;color:var(--ink-secondary);line-height:1.8;margin-bottom:14px
+}
+
+/* Detail placeholder in modal */
+.detail-placeholder-card{
+  width:100%;height:100%;min-height:200px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:var(--ink-tertiary);font-family:var(--font-hei);font-size:13px;letter-spacing:0.08em;
+  text-align:center;padding:20px
+}
+
+/* ===== Photo Card (摄影小卡片) ===== */
+.photo-card-overlay{
+  display:none;position:fixed;inset:0;z-index:190;
+  background:rgba(0,0,0,0.55);
+  justify-content:center;align-items:center;padding:20px;
+  animation:pcoFade 0.25s ease
+}
+.photo-card-overlay.open{display:flex}
+@keyframes pcoFade{from{opacity:0}to{opacity:1}}
+
+.photo-card{
+  background:var(--surface);width:90%;max-width:960px;
+  max-height:80vh;position:relative;overflow:hidden;
+  animation:pcoIn 0.38s cubic-bezier(0.22,1,0.36,1);
+  display:flex;flex-direction:column
+}
+@keyframes pcoIn{
+  from{opacity:0;transform:scale(0.92) translateY(14px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
+}
+
+.photo-card .pc-close{
+  position:absolute;top:8px;right:8px;z-index:10;
+  width:28px;height:28px;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,0.85);border:1px solid var(--border);cursor:pointer;
+  font-family:var(--font-en);font-size:12px;color:var(--ink);
+  transition:background 0.2s
+}
+.photo-card .pc-close:hover{background:var(--gold);border-color:var(--gold)}
+
+.photo-card .pc-body{
+  display:grid;grid-template-columns:1.1fr 340px;flex:1;overflow:hidden
+}
+.photo-card .pc-image-wrap{
+  position:relative;background:var(--img-bg);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;min-height:320px
+}
+.photo-card .pc-image-wrap img{
+  max-width:100%;max-height:72vh;width:auto;height:auto;
+  object-fit:contain;display:block;padding:12px;
+  transition:opacity 0.35s ease
+}
+.photo-card .pc-img-nav{
+  position:absolute;bottom:12px;left:50%;transform:translateX(-50%);
+  display:none;align-items:center;gap:6px;
+  background:rgba(255,255,255,0.8);border:1px solid var(--border);
+  padding:2px 8px
+}
+.photo-card .pcin-btn{
+  width:24px;height:24px;display:flex;align-items:center;justify-content:center;
+  background:none;border:1px solid var(--border);cursor:pointer;
+  font-family:var(--font-en);font-size:12px;color:var(--ink);
+  transition:background 0.2s;line-height:1
+}
+.photo-card .pcin-btn:hover{background:var(--gold);border-color:var(--gold)}
+.photo-card .pcin-dots{
+  font-family:var(--font-en);font-size:10px;letter-spacing:0.06em;
+  color:var(--ink-secondary);min-width:24px;text-align:center
+}
+
+.photo-card .pc-info{
+  padding:28px 24px;display:flex;flex-direction:column;
+  border-left:1px solid var(--border);overflow-y:auto
+}
+.photo-card .pc-info .pc-title{
+  font-family:var(--font-song);font-size:17px;font-weight:600;
+  color:var(--ink);letter-spacing:0.04em;line-height:1.4;margin-bottom:3px
+}
+.photo-card .pc-info .pc-meta{
+  font-size:11px;color:var(--ink-tertiary);margin-bottom:14px
+}
+.photo-card .pc-info .pc-divider{
+  width:18px;height:2px;background:var(--gold);margin-bottom:14px;flex-shrink:0
+}
+.photo-card .pc-info .pc-label{
+  font-family:var(--font-en);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--ink-tertiary);margin-bottom:6px;flex-shrink:0
+}
+.photo-card .pc-info .pc-concept{
+  font-size:14px;color:var(--ink-secondary);line-height:1.9;
+  flex:1;word-break:break-word;max-height:55vh;
+  padding-left:14px;border-left:1px solid var(--border)
+}
+
+/* Staggered info entrance */
+.photo-card .pc-info > *{
+  opacity:0;animation:pcoSlideIn 0.35s cubic-bezier(0.22,1,0.36,1) forwards
+}
+.photo-card .pc-info .pc-title{animation-delay:0.06s}
+.photo-card .pc-info .pc-meta{animation-delay:0.10s}
+.photo-card .pc-info .pc-divider{animation-delay:0.14s}
+.photo-card .pc-info .pc-label{animation-delay:0.18s}
+.photo-card .pc-info .pc-concept{animation-delay:0.22s}
+@keyframes pcoSlideIn{
+  from{opacity:0;transform:translateX(6px)}
+  to{opacity:1;transform:translateX(0)}
+}
+
+/* Nav entrance (slightly delayed after card) */
+.photo-card .pc-nav{
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  padding:10px;border-top:1px solid var(--border);
+  background:var(--surface-alt);
+  animation:pcoFade 0.3s ease 0.15s both
+}
+.photo-card .pc-nav .pcn-btn{
+  width:28px;height:28px;display:flex;align-items:center;justify-content:center;
+  background:none;border:1px solid var(--border);cursor:pointer;
+  font-family:var(--font-en);font-size:12px;color:var(--ink);
+  transition:background 0.2s
+}
+.photo-card .pc-nav .pcn-btn:hover{background:var(--gold);border-color:var(--gold)}
+.photo-card .pc-nav .pcn-counter{
+  font-family:var(--font-en);font-size:11px;color:var(--ink-secondary);
+  letter-spacing:0.05em;min-width:40px;text-align:center
+}
+
+/* — Photo Card close/restore animation — */
+.photo-card-overlay.closing .photo-card{
+  animation:pcoOut 0.2s cubic-bezier(0.55,0,1,0.45) forwards
+}
+.photo-card-overlay.closing{animation:none}
+@keyframes pcoOut{
+  to{opacity:0;transform:scale(0.94) translateY(8px)}
+}
+
+@media(max-width:700px){
+  .photo-card .pc-body{grid-template-columns:1fr}
+  .photo-card .pc-image-wrap{min-height:200px;max-height:40vh}
+  .photo-card .pc-image-wrap img{max-height:38vh}
+  .photo-card .pc-info{border-left:none;border-top:1px solid var(--border);padding:20px 18px;max-height:220px}
+  .photo-card .pc-info .pc-concept{padding-left:12px;max-height:30vh;font-size:13px}
+  .photo-card{max-height:90vh;width:95%}
+}
+
+/* ===== Video Modal (keep for play button) ===== */
+.video-modal{
+  display:none;position:fixed;inset:0;z-index:210;
+  background:rgba(0,0,0,0.92);
+  justify-content:center;align-items:center;padding:24px
+}
+.video-modal.open{display:flex}
+.video-modal .video-wrap{width:90vw;max-width:960px;aspect-ratio:16/9;cursor:default;position:relative}
+.video-modal .video-wrap iframe{width:100%;height:100%;border:none}
+.video-modal .vm-close{
+  position:absolute;top:-36px;right:0;
+  background:none;border:none;color:rgba(255,255,255,0.5);
+  font-family:var(--font-en);font-size:12px;letter-spacing:0.08em;cursor:pointer;
+  padding:4px 8px;transition:color 0.2s
+}
+.video-modal .vm-close:hover{color:#fff}
+
+/* ===== Reveal Animation ===== */
+.reveal{opacity:0;transform:translateY(24px) scale(0.97);transition:opacity 0.5s cubic-bezier(0.22,1,0.36,1),transform 0.5s cubic-bezier(0.22,1,0.36,1)}
+.reveal.in-view{opacity:1;transform:translateY(0) scale(1)}
+.d1{transition-delay:0.06s}.d2{transition-delay:0.12s}.d3{transition-delay:0.18s}.d4{transition-delay:0.24s}
+
+/* ===== Reduced Motion ===== */
+@media(prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}
+  html{scroll-behavior:auto}
+}
+
+/* ===== Responsive ===== */
+@media(max-width:900px){
+  .case-card{grid-template-columns:1fr}
+  .case-card .case-image{padding:12px}
+}
+@media(max-width:968px){
+  .hero-grid{grid-template-columns:1fr;min-height:auto}
+  .hero-left{max-width:100%}
+  .hero-right{display:none}
+  .manifesto{grid-template-columns:1fr;gap:32px}
+  .block-inner{flex-direction:column;gap:24px}
+  .block-side .side-icons{min-height:220px}
+}
+@media(max-width:768px){
+  .block-side .side-icons{min-height:200px}
+  .exp-grid{grid-template-columns:1fr}
+  .detail-image-section{padding:8px 0}
+  .detail-info-section{padding:20px 20px 28px}
+  .detail-image-nav{bottom:8px}
+  .detail-body{grid-template-columns:1fr}
+  .skills-grid{grid-template-columns:repeat(2,1fr)}
+  :root{--section-py:80px}
+}
+@media(max-width:768px){
+  .hamburger{display:flex}
+  .nav-links{
+    display:none;position:absolute;top:56px;left:0;right:0;
+    background:rgba(255,255,255,0.98);border-bottom:1px solid var(--border);
+    padding:12px 16px;flex-direction:column;gap:2px
+  }
+  .nav-links.open{display:flex}
+  .nav-links a{padding:10px 16px}
+  .nav-links a::after{display:none}
+  .work-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+    .contact-grid{grid-template-columns:1fr}
+  .hero-left h1{font-size:clamp(42px,10vw,56px)}
+  .skills-grid{grid-template-columns:1fr 1fr}
+  .detail-modal{width:95%}
+  .detail-info-section{padding:20px}
+  :root{--section-py:64px}
+}
+@media(max-width:480px){
+  .container{padding:0 16px}
+  .hero{padding:60px 0 20px}
+  .work-grid{grid-template-columns:1fr}
+  .photo-masonry{column-count:1}
+  .tabs{overflow-x:auto}
+  .tab-btn{padding:10px 14px;font-size:12px;white-space:nowrap}
+  .skills-grid{grid-template-columns:1fr}
+  .detail-overlay{padding:12px}
+}
+@media(max-width:768px)and (min-width:481px){
+  .photo-masonry{column-count:2}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Nav ===== -->
+<nav>
+  <div class="container">
+    <a href="#" class="nav-brand"><span class="brand-marker"></span>新视界</a>
+    <button class="hamburger" id="hamburger" aria-label="menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#works">Works</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#awards">Awards</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ===== Hero ===== -->
+<main>
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <p class="hero-label">Portfolio 2026</p>
+        <h1>新视界</h1>
+        <p class="sub-en">New Vision · Visual Communication Design</p>
+        <div class="hero-sep"></div>
+        <p class="tagline">
+          换个视角，看见新可能<br>
+          <span style="font-family:var(--font-hei);font-size:13px;color:var(--ink-tertiary);letter-spacing:0.04em">
+            以设计重构视界，用视觉传递价值
+          </span>
+        </p>
+        <div class="hero-cta">
+          <a href="#works" class="btn btn-primary">浏览作品</a>
+          <a href="#contact" class="btn btn-outline">联系我</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-right-empty">
+          <div class="deco-grid"></div>
+          <svg class="penrose-stairs" viewBox="0 0 372 283" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <path id="st" d="m0,0 37,18 -37,18 -37,-18 z"/>
+            </defs>
+            <!-- Construction guide lines -->
+            <g fill="none" stroke="currentColor" stroke-width="0.4" stroke-linecap="round" opacity="0.07" stroke-dasharray="2,4">
+              <circle cx="186" cy="141" r="115"/>
+              <circle cx="186" cy="141" r="85"/>
+              <line x1="65" y1="141" x2="307" y2="141"/>
+              <line x1="186" y1="30" x2="186" y2="253"/>
+            </g>
+            <!-- Main staircase linework -->
+            <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round" opacity="0.4">
+              <!-- Step tops -->
+              <use href="#st" x="242" y="18"/>
+              <use href="#st" x="205" y="28"/>
+              <use href="#st" x="168" y="38"/>
+              <use href="#st" x="131" y="48"/>
+              <use href="#st" x="94" y="58"/>
+              <use href="#st" x="57" y="68"/>
+              <use href="#st" x="279" y="43"/>
+              <use href="#st" x="94" y="78"/>
+              <use href="#st" x="131" y="88"/>
+              <use href="#st" x="168" y="98"/>
+              <use href="#st" x="205" y="108"/>
+              <use href="#st" x="242" y="118"/>
+              <use href="#st" x="279" y="93"/>
+              <use href="#st" x="316" y="68"/>
+              <!-- Side riser contours -->
+              <path d="m279,36 -37,18 v-8 l-37,18 v-8 l-37,18 v-8 l-37,18 v-8 l-37,18 v77 h185 z"/>
+              <path d="m316,61 v7 l-37,18 v-7 z"/>
+              <path d="m316,104 -37,-18 v-7 l-37,-18 v99 h74 z"/>
+              <path d="m353,86 -37,18 v7 l-37,18 v7 l-37,18 v113 l111,-54 z"/>
+              <path d="m20,159 v-73 l37,18 v-8 l37,18 v-8 l37,18 v-8 l37,18 v-8 l37,18 v-8 l37,18 v113 z"/>
+            </g>
+            <!-- Second offset pass (sketch feel) -->
+            <g fill="none" stroke="currentColor" stroke-width="0.5" stroke-linejoin="round" stroke-linecap="round" opacity="0.12" stroke-dasharray="3,5">
+              <use href="#st" x="243" y="19"/>
+              <use href="#st" x="206" y="29"/>
+              <use href="#st" x="169" y="39"/>
+              <use href="#st" x="132" y="49"/>
+              <use href="#st" x="95" y="59"/>
+              <use href="#st" x="58" y="69"/>
+              <path d="m280,37 -37,18 v-8 l-37,18 v-8 l-37,18 v-8 l-37,18 v-8 l-37,18 v77 h185 z"/>
+            </g>
+            <!-- Gold accent lines -->
+            <g fill="none" stroke="var(--gold)" stroke-width="0.7" stroke-linejoin="round" stroke-linecap="round" opacity="0.2">
+              <use href="#st" x="242" y="18"/>
+              <use href="#st" x="57" y="68"/>
+              <path d="m279,36 -37,18 v-8 l-37,18 v-8 l-37,18 v-8 l-37,18 v-8 l-37,18 v77 h185 z"/>
+              <path d="m20,159 v-73 l37,18 v-8 l37,18 v-8 l37,18 v-8 l37,18 v-8 l37,18 v-8 l37,18 v113 z"/>
+              <path d="m353,86 -37,18 v7 l-37,18 v7 l-37,18 v113 l111,-54 z"/>
+            </g>
+          </svg>
+          <div class="deco-dot"></div>
+          <div class="deco-dot-2"></div>
+          <div class="corner-accent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== About + Skills ===== -->
+<section id="about" style="background:var(--surface-alt)">
+  <div class="container">
+    <div class="about-intro reveal">
+      <div class="accent-line"></div>
+      <p class="section-index">About</p>
+      <h2 class="section-title">设计是一场理解的过程</h2>
+    </div>
+
+    <div class="manifesto">
+      <div class="manifesto-block reveal d1">
+        <p class="num">/ 01</p>
+        <h3>核心理念&ensp;·&ensp;<span class="highlight">格物致知</span></h3>
+        <div class="block-inner">
+          <div class="block-text">
+            <p>
+              好的视觉作品不是从风格出发的，而是从<strong>理解</strong>出发的。
+              每次创作前，我先去「格」这个对象——它的背景、它的属性、
+              它想要传达的信息，以及它面对的是谁。
+            </p>
+            <div class="quote-block">
+              设计的本质不是表达自己，<br>
+              而是让作品恰如其分地服务于<br>
+              它要表达的内容和它要沟通的人。
+            </div>
+            <p>
+              这就是我理解的「格物致知」——先求深入理解，再做出有依据的创作。
+              不是灵感决定一切，而是理解之后，自然知道该怎么做。
+            </p>
+          </div>
+          <div class="block-side">
+            <div class="side-icons">
+              <!-- Neural connection lines -->
+              <svg class="neuron-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M 50 50 L 15 50" />
+                <path d="M 50 50 L 85 50" />
+                <path d="M 50 50 Q 40 35, 30 20" />
+                <path d="M 50 50 Q 60 35, 70 20" />
+                <path d="M 50 50 Q 35 65, 20 78" />
+                <path d="M 50 50 Q 65 65, 80 78" />
+                <path d="M 50 50 L 35 88" />
+                <path d="M 50 50 L 65 88" />
+                <path d="M 30 20 Q 50 10, 70 20" />
+                <path d="M 15 50 Q 15 65, 20 78" />
+                <path d="M 85 50 Q 85 65, 80 78" />
+                <path d="M 35 88 Q 50 95, 65 88" />
+              </svg>
+              <!-- Neural nodes — brain shape centered on Claude -->
+              <div class="ni-item center" style="left:50%;top:50%">
+                <div class="ni-node"><img src="media/icons/Claude Code.png" alt="Claude"></div>
+                <span class="ni-label">Claude</span>
+              </div>
+              <div class="ni-item" style="left:15%;top:50%">
+                <div class="ni-node"><img src="media/icons/PS.png" alt="PS"></div>
+                <span class="ni-label">PS</span>
+              </div>
+              <div class="ni-item" style="left:85%;top:50%">
+                <div class="ni-node"><img src="media/icons/Premiere-Pro.png" alt="Pr"></div>
+                <span class="ni-label">Pr</span>
+              </div>
+              <div class="ni-item" style="left:30%;top:20%">
+                <div class="ni-node"><img src="media/icons/gpt.png" alt="GPT"></div>
+                <span class="ni-label">GPT</span>
+              </div>
+              <div class="ni-item" style="left:70%;top:20%">
+                <div class="ni-node"><img src="media/icons/AE.png" alt="AE"></div>
+                <span class="ni-label">AE</span>
+              </div>
+              <div class="ni-item" style="left:20%;top:78%">
+                <div class="ni-node"><img src="media/icons/即梦.png" alt="即梦"></div>
+                <span class="ni-label">即梦</span>
+              </div>
+              <div class="ni-item" style="left:80%;top:78%">
+                <div class="ni-node"><img src="media/icons/剪映.png" alt="剪映"></div>
+                <span class="ni-label">剪映</span>
+              </div>
+              <div class="ni-item" style="left:35%;top:88%">
+                <div class="ni-node"><img src="media/icons/kimi.png" alt="KIMI"></div>
+                <span class="ni-label">KIMI</span>
+              </div>
+              <div class="ni-item" style="left:65%;top:88%">
+                <div class="ni-node"><img src="media/icons/豆包.png" alt="豆包"></div>
+                <span class="ni-label">豆包</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Skills Section ===== -->
+    <div class="skills-section reveal d3">
+      <p class="skills-label">Skills</p>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-head">
+            <div class="skill-icon"></div>
+            <h4>平面设计</h4>
+          </div>
+          <p>Photoshop</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-head">
+            <div class="skill-icon"></div>
+            <h4>视频剪辑</h4>
+          </div>
+          <p>Premiere Pro · After Effects · 剪映</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-head">
+            <div class="skill-icon"></div>
+            <h4>影视设计</h4>
+          </div>
+          <p>视频拍摄 · 场景拍摄</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-head">
+            <div class="skill-icon"></div>
+            <h4>AI 工具应用</h4>
+          </div>
+          <p>Claude Code · 即梦 · ChatGPT · 豆包 · KIMI</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Works ===== -->
+<section id="works">
+  <div class="container">
+    <p class="section-index reveal">Works</p>
+    <h2 class="section-title reveal">作品集</h2>
+
+    <div class="tabs reveal" id="workTabs">
+      <button class="tab-btn active" data-tab="video">影视设计</button>
+      <button class="tab-btn" data-tab="photo">影像纪实</button>
+      <button class="tab-btn" data-tab="poster">平面设计</button>
+      <button class="tab-btn" data-tab="automation">AI 工作流</button>
+    </div>
+
+    <!-- Tab: Video -->
+    <div class="tab-panel active" id="panel-video">
+      <div class="work-grid">
+        <div class="work-card" onclick="window.open('https://www.bilibili.com/video/BV1rK5e6TE2L/','_blank')">
+          <div class="card-image">
+            <img src="media/video/short-film-cover.jpg" alt="艾启心扉" loading="lazy">
+            <div class="play-badge">PLAY</div>
+            <div class="card-overlay">
+              <div class="tt">校园微电影《艾启心扉》</div>
+              <div class="st">剧情短片 &middot; 2025</div>
+            </div>
+          </div>
+        </div>
+        <div class="work-card" data-zoom="cover" onclick="window.open('https://www.bilibili.com/video/BV1HP5e6zEZn/','_blank')">
+          <div class="card-image">
+            <img src="media/video/stopmotion-cover.png" alt="校园一日" loading="lazy">
+            <div class="label-tag">定格动画</div>
+            <div class="play-badge">PLAY</div>
+            <div class="card-overlay">
+              <div class="tt">定格动画《校园一日》</div>
+              <div class="st">逐帧动画 &middot; 2023</div>
+            </div>
+          </div>
+        </div>
+        <div class="work-card" data-zoom="cover" onclick="window.open('https://www.bilibili.com/video/BV1bM6FBEEQu/','_blank')">
+          <div class="card-image">
+            <img src="media/video/smsl-cover.png" alt="双木三林" loading="lazy">
+            <div class="play-badge">PLAY</div>
+            <div class="card-overlay">
+              <div class="tt">双木三林 · 影音设备科普</div>
+              <div class="st">影音科普 &middot; 2026</div>
+            </div>
+          </div>
+        </div>
+        <div class="work-card" data-zoom="cover" onclick="window.open('https://www.bilibili.com/video/BV1JPFnz3E9A/','_blank')">
+          <div class="card-image">
+            <img src="media/video/tp-cover.png" alt="拓品" loading="lazy">
+            <div class="play-badge">PLAY</div>
+            <div class="card-overlay">
+              <div class="tt">拓品 · 影音设备科普</div>
+              <div class="st">影音科普 &middot; 2026</div>
+            </div>
+          </div>
+        </div>
+        <div class="work-card" data-zoom="cover" onclick="window.open('https://www.bilibili.com/video/BV1ki9VBCEGr/','_blank')">
+          <div class="card-image">
+            <img src="media/video/feiao-cover.jpg" alt="飞傲" loading="lazy">
+            <div class="play-badge">PLAY</div>
+            <div class="card-overlay">
+              <div class="tt">飞傲 · 影音设备科普</div>
+              <div class="st">影音科普 &middot; 2026</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Photo -->
+    <div class="tab-panel" id="panel-photo">
+      <div class="photo-masonry">
+        <div class="work-card" data-cat="photo" data-idx="0" onclick="openCardOverlay('photo',0)">
+          <div class="card-image"><img src="media/photo/photo-01.jpg" alt="摄影 01" loading="lazy"></div>
+        </div>
+        <div class="work-card" data-cat="photo" data-idx="1" onclick="openCardOverlay('photo',1)">
+          <div class="card-image"><img src="media/photo/photo-02.png" alt="摄影 02" loading="lazy"></div>
+        </div>
+        <div class="work-card" data-cat="photo" data-idx="2" onclick="openCardOverlay('photo',2)">
+          <div class="card-image"><img src="media/photo/photo-03.jpg" alt="摄影 03" loading="lazy"></div>
+        </div>
+        <div class="work-card" data-cat="photo" data-idx="3" onclick="openCardOverlay('photo',3)">
+          <div class="card-image"><img src="media/photo/photo-05.png" alt="摄影 05" loading="lazy"></div>
+        </div>
+        <div class="work-card" data-cat="photo" data-idx="4" onclick="openCardOverlay('photo',4)">
+          <div class="card-image"><img src="media/photo/photo-06.jpg" alt="摄影 06" loading="lazy"></div>
+        </div>
+        <div class="work-card" data-cat="photo" data-idx="5" onclick="openCardOverlay('photo',5)">
+          <div class="card-image"><img src="media/photo/photo-07.jpg" alt="摄影 07" loading="lazy"></div>
+        </div>
+        <div class="work-card" data-cat="photo" data-idx="6" onclick="openCardOverlay('photo',6)">
+          <div class="card-image"><img src="media/photo/photo-08.jpg" alt="摄影 08" loading="lazy"></div>
+        </div>
+        <div class="work-card" data-cat="photo" data-idx="7" onclick="openCardOverlay('photo',7)">
+          <div class="card-image"><img src="media/photo/photo-09.jpg" alt="摄影 09" loading="lazy"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Poster -->
+    <div class="tab-panel" id="panel-poster">
+      <p class="section-label">港式美食系列</p>
+      <div class="work-grid">
+        <div class="work-card" data-cat="food" data-idx="0" onclick="openCardOverlay('food',0)">
+          <div class="card-image"><img src="media/posters-food/silky-milk-tea.jpg" alt="丝袜奶茶" loading="lazy"><div class="label-tag">丝袜奶茶</div></div>
+        </div>
+        <div class="work-card" data-cat="food" data-idx="1" onclick="openCardOverlay('food',1)">
+          <div class="card-image"><img src="media/posters-food/double-skin-milk.jpg" alt="双皮奶" loading="lazy"><div class="label-tag">双皮奶</div></div>
+        </div>
+        <div class="work-card" data-cat="food" data-idx="2" onclick="openCardOverlay('food',2)">
+          <div class="card-image"><img src="media/posters-food/shark-fin-soup.jpg" alt="碗仔翅" loading="lazy"><div class="label-tag">碗仔翅</div></div>
+        </div>
+        <div class="work-card" data-cat="food" data-idx="3" onclick="openCardOverlay('food',3)">
+          <div class="card-image"><img src="media/posters-food/pineapple-bun.jpg" alt="菠萝包" loading="lazy"><div class="label-tag">菠萝包</div></div>
+        </div>
+        <div class="work-card" data-cat="food" data-idx="4" onclick="openCardOverlay('food',4)">
+          <div class="card-image"><img src="media/posters-food/shrimp-wonton.jpg" alt="鲜虾云吞" loading="lazy"><div class="label-tag">鲜虾云吞</div></div>
+        </div>
+        <div class="work-card" data-cat="food" data-idx="5" onclick="openCardOverlay('food',5)">
+          <div class="card-image"><img src="media/posters-food/egg-puff.jpg" alt="鸡蛋仔" loading="lazy"><div class="label-tag">鸡蛋仔</div></div>
+        </div>
+      </div>
+      <p class="section-label" style="margin-top:48px">香水电商系列</p>
+      <div class="work-grid">
+        <div class="work-card" data-cat="perfume" data-idx="0" onclick="openCardOverlay('perfume',0)">
+          <div class="card-image"><img src="media/posters-perfume/perfume-01.png" alt="香水 01" loading="lazy"></div>
+        </div>
+        <div class="work-card" data-cat="perfume" data-idx="1" onclick="openCardOverlay('perfume',1)">
+          <div class="card-image"><img src="media/posters-perfume/perfume-02.png" alt="香水 02" loading="lazy"></div>
+        </div>
+        <div class="work-card" data-cat="perfume" data-idx="2" onclick="openCardOverlay('perfume',2)">
+          <div class="card-image"><img src="media/posters-perfume/perfume-03.png" alt="香水 03" loading="lazy"></div>
+        </div>
+        <div class="work-card" data-cat="perfume" data-idx="3" onclick="openCardOverlay('perfume',3)">
+          <div class="card-image"><img src="media/posters-perfume/perfume-04.png" alt="香水 04" loading="lazy"></div>
+        </div>
+        <div class="work-card" data-cat="perfume" data-idx="4" onclick="openCardOverlay('perfume',4)">
+          <div class="card-image"><img src="media/posters-perfume/perfume-05.png" alt="香水 05" loading="lazy"></div>
+        </div>
+        <div class="work-card" data-cat="perfume" data-idx="5" onclick="openCardOverlay('perfume',5)">
+          <div class="card-image"><img src="media/posters-perfume/perfume-06.png" alt="香水 06" loading="lazy"></div>
+        </div>
+        <div class="work-card" data-cat="perfume" data-idx="6" onclick="openCardOverlay('perfume',6)">
+          <div class="card-image"><img src="media/posters-perfume/perfume-07.png" alt="香水 07" loading="lazy"></div>
+        </div>
+        <div class="work-card" data-cat="perfume" data-idx="7" onclick="openCardOverlay('perfume',7)">
+          <div class="card-image"><img src="media/posters-perfume/perfume-08.png" alt="香水 08" loading="lazy"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: AI 工作流 -->
+    <div class="tab-panel" id="panel-automation">
+      <div class="case-grid">
+        <div class="case-card reveal d1" onclick="openDetail('automation',0)">
+          <div class="case-image">
+            <img src="media/automation/本地日报工作流.png" alt="多平台热搜自动化系统工作流" loading="lazy">
+          </div>
+          <div class="case-content">
+            <div class="case-cat">自动化工作流</div>
+            <h3>多平台热搜自动化抓取与 AI 解读系统</h3>
+            <div class="case-tags">
+              <span>N8N</span>
+              <span>Claude Code</span>
+              <span>Obsidian</span>
+              <span>SMTP</span>
+            </div>
+            <p>多平台热搜定时抓取 → AI 解读分析 → 双通道输出：自动归档至 Obsidian + 邮件推送。模块化架构，一键触发全自动执行。</p>
+            <div class="case-more">点击查看详情 →</div>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--ink-tertiary);text-align:center;margin-top:24px;letter-spacing:0.06em">更多项目持续建设中</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Experience ===== -->
+<section id="experience" style="background:var(--surface-alt)">
+  <div class="container">
+    <p class="section-index reveal">Experience</p>
+    <h2 class="section-title reveal">经历</h2>
+    <div class="exp-grid">
+      <div class="exp-card reveal d1">
+        <div class="period">2021.01 — Present</div>
+        <h3>Bilibili 自媒体运营</h3>
+        <div class="role">自营账号 &middot; @aqbhw</div>
+        <p>
+          独立运营 Bilibili 账号，在多赛道内容中设计差异化封面与标题。
+          推翻「先做内容再配封面」的流程——把封面标题的设计前置到选题环节，
+          用封标反推内容方向。
+        </p>
+        <div class="stats">
+          <div class="stat"><span class="num">83-90%</span><span class="lbl">封面点击率<br>高于同类</span></div>
+          <div class="stat"><span class="num">24%</span><span class="lbl">3秒跳出率</span></div>
+          <div class="stat"><span class="num">14,000</span><span class="lbl">近90日播放</span></div>
+        </div>
+        <div class="exp-data-link" onclick="openCardOverlay('operations',1)">
+          <span class="edl-icon">+</span>
+          <span class="edl-text">运营数据</span>
+          <span class="edl-arrow">→</span>
+        </div>
+      </div>
+      <div class="exp-card reveal d2">
+        <div class="period">2024.04 — 2024.11</div>
+        <h3>校园融媒体中心</h3>
+        <div class="role">部员 &middot; 视觉创作</div>
+        <p>
+          负责官方微信公众号推文配图与抖音账号视频素材制作。
+          从无脑按快门到有目的有意识地完成任务，经历多次对标优秀作品的参考与自我进化。
+        </p>
+        <div class="stats">
+          <div class="stat"><span class="num">公众号</span><span class="lbl">推文配图</span></div>
+          <div class="stat"><span class="num">抖音</span><span class="lbl">视频素材</span></div>
+          <div class="stat"><span class="num">摄影</span><span class="lbl">拍摄修图</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Awards ===== -->
+<section id="awards">
+  <div class="container">
+    <p class="section-index reveal">Awards</p>
+    <h2 class="section-title reveal">荣誉奖项</h2>
+    <div class="awards-grid">
+      <div class="award-item reveal">
+        <div class="medal">01</div>
+        <div class="award-info">
+          <h4>广东职协防艾宣传作品征集赛</h4>
+          <div class="detail">微视频赛道</div>
+          <div class="prize">优秀奖 &middot; 2025.05</div>
+        </div>
+      </div>
+      <div class="award-item reveal">
+        <div class="medal">02</div>
+        <div class="award-info">
+          <h4>校园招生宣传作品征集大赛</h4>
+          <div class="detail">影视赛道</div>
+          <div class="prize">三等奖+特等奖 &middot; 2024.06</div>
+        </div>
+      </div>
+      <div class="award-item reveal">
+        <div class="medal">03</div>
+        <div class="award-info">
+          <h4>华夏奖文化艺术设计大赛</h4>
+          <div class="detail">传统节日视觉艺术赛道</div>
+          <div class="prize">银奖 &middot; 2025.10</div>
+        </div>
+      </div>
+      <div class="award-item reveal">
+        <div class="medal">04</div>
+        <div class="award-info">
+          <h4>国文奖两岸青年非遗文创设计大赛</h4>
+          <div class="detail">设计赛道</div>
+          <div class="prize">二等奖 &middot; 2026.01</div>
+        </div>
+      </div>
+      <div class="award-item reveal">
+        <div class="medal">05</div>
+        <div class="award-info">
+          <h4>亚洲大学生创意设计展</h4>
+          <div class="detail">AIGC 赛道</div>
+          <div class="prize">三等奖 &middot; 2026.01</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Contact ===== -->
+<section id="contact" style="background:var(--surface-alt)">
+  <div class="container">
+    <p class="section-index reveal">Contact</p>
+    <h2 class="section-title reveal">联系我</h2>
+    <div class="contact-grid">
+      <a href="mailto:2173714005@qq.com" class="contact-item reveal d1">
+        <div class="icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg></div>
+        <div><div class="lbl">Email</div><div class="val">2173714005@qq.com</div></div>
+      </a>
+      <a href="tel:15875574296" class="contact-item reveal d2">
+        <div class="icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+        <div><div class="lbl">Phone</div><div class="val">15875574296</div></div>
+      </a>
+      <a href="https://space.bilibili.com/646054405" target="_blank" class="contact-item reveal d3">
+        <div class="icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/></svg></div>
+        <div><div class="lbl">Bilibili</div><div class="val">@aqbhw</div></div>
+      </a>
+      <div class="contact-item reveal d4" style="cursor:default">
+        <div class="icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div><div class="lbl">Location</div><div class="val">深圳 &middot; 龙岗</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+</main>
+<footer>
+  <div class="container">
+    <div class="foot-marker"></div>
+    <p class="phrase">新视界 · 看见新可能</p>
+    <p>&copy; 2026 新视界</p>
+  </div>
+</footer>
+
+<!-- ===== Detail Overlay ===== -->
+<div class="detail-overlay" id="detailOverlay">
+  <div class="detail-modal">
+    <button class="detail-close" onclick="closeDetail()">✕</button>
+    <div class="detail-body" id="detailBody">
+      <div class="detail-image-section" id="detailImageSection">
+        <div class="detail-image-wrap" id="detailImageWrap">
+          <img id="detailImage" src="" alt="">
+        </div>
+        <div class="detail-image-nav" id="detailImageNav" style="display:none">
+          <button class="din-btn" onclick="detailImgNav(-1)">‹</button>
+          <span class="din-counter" id="detailImgCounter">1/1</span>
+          <button class="din-btn" onclick="detailImgNav(1)">›</button>
+        </div>
+      </div>
+      <div class="detail-info-section" id="detailInfoSection">
+        <div class="di-category" id="detailCategory"></div>
+        <h3 id="detailTitle"></h3>
+        <div class="di-meta" id="detailMeta"></div>
+        <div class="di-divider"></div>
+        <div class="di-label" id="detailDescLabel">项目描述</div>
+        <p class="di-text" id="detailDesc"></p>
+        <div class="di-label" id="detailToolsLabel">工具 / 技术</div>
+        <p class="di-text" id="detailTools"></p>
+        <div class="di-label">创意说明</div>
+        <p class="di-text" id="detailConcept"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Photo Card Overlay ===== -->
+<div class="photo-card-overlay" id="photoCardOverlay">
+  <div class="photo-card">
+    <button class="pc-close" onclick="closePhotoCard()">✕</button>
+    <div class="pc-body">
+      <div class="pc-image-wrap" id="pcImageWrap">
+        <img id="pcImage" src="" alt="">
+        <div class="pc-img-nav" id="pcImgNav">
+          <button class="pcin-btn" onclick="pcImgNav(-1)">‹</button>
+          <span class="pcin-dots" id="pcImgDots"></span>
+          <button class="pcin-btn" onclick="pcImgNav(1)">›</button>
+        </div>
+      </div>
+      <div class="pc-info">
+        <div class="pc-title" id="pcTitle"></div>
+        <div class="pc-meta" id="pcMeta"></div>
+        <div class="pc-divider"></div>
+        <div class="pc-label">创意说明</div>
+        <div class="pc-concept" id="pcConcept"></div>
+      </div>
+    </div>
+    <div class="pc-nav">
+      <button class="pcn-btn" onclick="photoCardNav(-1)">‹</button>
+      <span class="pcn-counter" id="pcCounter">1/8</span>
+      <button class="pcn-btn" onclick="photoCardNav(1)">›</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Video Modal ===== -->
+<div class="video-modal" id="videoModal">
+  <div class="video-wrap" onclick="event.stopPropagation()">
+    <button class="vm-close" onclick="closeVideo()">CLOSE [X]</button>
+    <iframe id="videoIframe" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+  </div>
+</div>
+
+<script>
+// ===== Work Database for Detail Overlay =====
+const workDB = {
+  video: [
+    {
+      images: ['media/video/short-film-cover.jpg'],
+      title: '校园微电影《艾启心扉》',
+      category: '剧情短片',
+      meta: '2025 · 短片创作',
+      tools: 'Premiere Pro / After Effects',
+      desc: '一部关于艾滋病反歧视的校园微电影。通过镜头语言讲述温暖感人的故事，传递爱与包容的价值理念。从剧本分镜到后期剪辑全流程独立完成。',
+      concept: '以温暖克制的叙事手法，通过光影对比和细腻的表演捕捉，呈现校园青春题材的真实感与感染力。片头采用手绘风格标题动画，配合缓慢的钢琴配乐营造沉思氛围。'
+    },
+    {
+      images: ['media/video/stopmotion-cover.png'],
+      title: '定格动画《校园一日》',
+      category: '逐帧动画',
+      meta: '2023 · 国家公祭日主题',
+      tools: 'Premiere Pro / After Effects',
+      desc: '以国家公祭日为主题的定格动画短片。通过逐帧拍摄的方式，展现对历史的铭记与对和平的珍视。',
+      concept: '采用剪纸风格与黑白基调，通过逐帧动画的质朴感传达沉重而肃穆的情绪。音效设计上使用环境声与低音铺垫增强沉浸感。'
+    },
+    {
+      images: ['media/video/smsl-cover.png'],
+      title: '双木三林 · 影音设备科普',
+      category: '影音科普',
+      meta: '2026 · 产品视频',
+      tools: 'Premiere Pro / DaVinci Resolve',
+      desc: '双木三林音频产品的深度评测视频。从外观设计、功能体验到音质表现，全方位展示产品特性。',
+      concept: '采用产品实拍+图表数据结合的叙事结构，画面节奏跟随音乐起伏，突出 Hi-Fi 产品的品质感与细节美。'
+    },
+    {
+      images: ['media/video/tp-cover.png'],
+      title: '拓品 · 影音设备科普',
+      category: '影音科普',
+      meta: '2026 · 产品视频',
+      tools: 'Premiere Pro / DaVinci Resolve',
+      desc: '拓品音频产品的评测视频，涵盖开箱、功能演示、听感对比等内容模块。',
+      concept: '在评测类视频中注重信息可视化呈现，将技术参数转化为直观的视觉图表，降低理解门槛。'
+    },
+    {
+      images: ['media/video/feiao-cover.jpg'],
+      title: '飞傲 · 影音设备科普',
+      category: '影音科普',
+      meta: '2026 · 产品视频',
+      tools: 'Premiere Pro / DaVinci Resolve',
+      desc: '飞傲音频产品的评测视频创作，从用户视角出发，结合产品实际使用场景进行体验分享。',
+      concept: '以「真实体验」为切入点，弱化参数对比，强化场景化使用展示，配合 B-roll 提升画面丰富度。'
+    }
+  ],
+  photo: [
+    { images: ['media/photo/photo-01.jpg'], title: '未完成的摆动', category: '摄影', meta: '环境', concept: '蹲到孩子的高度，从秋千链条的缝隙里，看雨刚停的天台。座椅悬着半滴雨，没有人坐上去把它荡完。跷跷板翘着一头，等人来压，人没来。远处的楼隔着雾气，像一幅贴得太高的画，够不到。调色褪成旧记忆的样子——青绿的草、泛白的天、潮湿的地砖反光。熟悉，但哪里不对。像小时候某个下午，你确信自己来过这里，却想不起后来去了哪里。整个天台是一句没说完的话。雨走了，孩子也没来。只有秋千停在半途，像某个被按了暂停的童年。' },
+    { images: ['media/photo/photo-02.png'], title: '树影曲径', category: '摄影', meta: '环境 / 自然', concept: '正午的阳光穿过树冠，被枝叶切割成千万片碎金，簌簌落在建筑的表面与缝隙里。风过时，光斑轻轻晃动，像时间的脉搏在墙面上跳动。这一刻，建筑不再是钢筋水泥的构造物——它成了承接碎光的容器，每一道窗檐、每一寸墙面都成了光的画布。树影在脚下铺成一条曲径，通往的不是某个具体的去处，而是一种安静的状态：你站在那里，不需要做什么，光是看着光在移动，就能感到一种完整的、属于自己的平静。快门按下的瞬间，不是捕捉，而是参与——参与了一场光和树影合谋的即兴演出。' },
+    { images: ['media/photo/photo-03.jpg'], title: '檐上旧梦', category: '摄影', meta: '古建筑 / 夜景', concept: '暮色沉下来的时候，飞檐的轮廓最先被天光抛弃——它们悬在半空，像一句说了一半就停在那里的话，像一场开始了吗就结束的梦。檐角翘起的弧度还保持着向上的姿态，仿佛在等某个答案。而两盏灯笼垂在檐下，亮着。灯芯攒动的微光从纸笼里透出来，晕成两团温润的橘色，不紧不慢地亮着——好像只要它们还在，这个梦就还没有结束。墙面的旧漆、瓦当的纹路、木门的蚀痕，都被这微弱的光照出了不该被忘记的细节。按下快门的那一刻，不是因为它多好看，而是因为某些东西正在被时间带走，而光还替我们留着一口呼吸。' },
+    { images: ['media/photo/photo-05.png'], title: '栏外城山', category: '摄影', meta: '城市 / 风光', concept: '栏杆是一道不肯让步的界线。它把城市框在眼前——高楼、街道、车流，都在伸手可及的这一侧；而远山在另一侧，沉默地横在天际线上，近在咫尺，却远在天涯。人站在这条界线之间，一只手扶着冰凉的栏杆，另一只手悬在半空——不知道该抓住什么，也不知道该放下什么。这就是「困」与「望」之间最真实的距离：不是远山太远，而是栏杆太高。可你仍然在看。目光越过钢与水泥的网格，落在那些青灰色的轮廓上，仿佛只要看得够久，就能把自己也放到那片山色里去。没有答案，但有一个动作——抬头。而抬头本身，就已经是最好的回答。' },
+    { images: ['media/photo/photo-06.jpg'], title: '幽蓝帖', category: '摄影', meta: '夜景 / 自然', concept: '幽蓝的夜空是一张被反复铺平的信笺。没有格线，没有落款，只有寂静作为底色铺满了整张纸。树枝是信纸上未干的笔迹——蘸着夜色书写的行草，有的笔画刚劲，直直地划向天际；有的欲言又止，在半途拐了个弯，留下一个未完的顿笔。这封信没有收件人，也没有寄出的打算。就像深夜睡不着时写下的那些话——写的时候没想好要写给谁，写完了也没想过要发出去，只是觉得心里有什么东西需要落在一张纸上。所有的情绪都封存在这片幽蓝里，冷冽、安静、不必被任何人理解。你站在树下抬头看的时候，像是在看自己某天夜里想说却没说出口的那句话——换了一种笔迹，写在了天上。' },
+    { images: ['media/photo/photo-07.jpg'], title: '空径', category: '摄影', meta: '环境 / 光影', concept: '午后斜阳把树影拉成长长的笔触，一道一道铺在弯曲的路面上。影子从不同的方向来，在弯道处汇合、重叠、交织，像一条无声的河——从树梢流淌到地面，再沿着路面的弧度缓缓拐入远处。你站在那里，看着光与影的交界线一寸一寸地移动。不是树在动，不是路在动，是时间本身在流淌。路面是河床，影子是流水，而你是站在岸上看水的人。这条河没有浪花，只是安静地、不急不缓地把所有光影都带向午后更深的地方。没有人走在上面，但路已经替所有没来过的人走过了这个下午。' },
+    { images: ['media/photo/photo-08.jpg'], title: '光尘纪', category: '摄影', meta: '环境 / 自然', concept: '光在此刻有了重量，像碎金簌簌坠落，铺满凹凸的地面。午后的最后一道倾斜——或可称之为「黄昏的入口」——将万物拖入一场私密的对话。一个人独自站立在光影之下，没有说话，只有呼吸与光影的共振。那些碎金落在他的肩头、衣摆，又顺着身体的线条滑落，仿佛时间本身在缓慢地流淌、堆叠。这不是记录性的摄影，而是一次对存在感的凝视：当光线变得有质感，它就不再仅仅是视觉现象，而是一种可触摸的情感介质；人与黄昏的对谈，无需言语，答案早已写在光影的边缘。此刻，快门声不是打断，而是对这一刻虔诚的收藏。' },
+    { images: ['media/photo/photo-09.jpg'], title: '风的形状', category: '摄影', meta: '风景 / 风光', concept: '风从不解释自己。它无形无色，不是不想被看见——是它根本不在乎。但风车是它路过人间时留下的唯一可见的轮廓。巨大的叶片划过天空的弧线，一圈一圈，不快不慢，像一座露天的钟表丈量着某种比时间更古老的东西。你站在那里，看不清叶片旋转的速度，只感觉整个天空都在缓慢地转动。风从远方来——穿过山谷、越过田野、掠过城市的屋顶——找到这座风车，推着它转动，像老朋友远远走来、拍了拍你的肩膀。这就是风的形状：不是被看见的东西，而是被承认的东西。闭上眼感受得到它，睁开眼却找不到它。只有那座风车还在转，一圈接一圈，替所有看不见的东西留下形状。' }
+  ],
+  food: [
+    { images: ['media/posters-food/silky-milk-tea.jpg'], title: '丝袜奶茶', category: '', meta: '"唔食唔知"港式美食系列海报', tools: 'Illustrator / Photoshop', desc: '以砖红深褐为主色调，提取港式奶茶的浓茶汤色与黑白淡奶包装的经典红，沉淀出茶餐厅的复古质感。', concept: '"唔食唔知"系列海报并非简单的美食展示，而是一次港式饮食文化的视觉考古与当代重构。通过色彩通感、材质叙事、字体考古与插画转译，将"茶餐厅"这一充满烟火气的空间场景，浓缩为可传播、可收藏、可共鸣的视觉符号。在"国潮"泛滥的当下，本设计选择以克制的复古、精准的在地性、不媚俗的市井气，构建差异化的品牌认知——让海报本身，成为"唔食唔知"的最佳注脚。' },
+    { images: ['media/posters-food/double-skin-milk.jpg'], title: '双皮奶', category: '', meta: '"唔食唔知"港式美食系列海报', tools: 'Illustrator / Photoshop', desc: '以靛蓝乳白为主色调，以青花瓷碗的靛蓝碰撞奶白，构建广式糖水的清雅语境，芒果块的明黄点缀打破冷调沉闷。', concept: '"唔食唔知"系列海报并非简单的美食展示，而是一次港式饮食文化的视觉考古与当代重构。通过色彩通感、材质叙事、字体考古与插画转译，将"茶餐厅"这一充满烟火气的空间场景，浓缩为可传播、可收藏、可共鸣的视觉符号。在"国潮"泛滥的当下，本设计选择以克制的复古、精准的在地性、不媚俗的市井气，构建差异化的品牌认知——让海报本身，成为"唔食唔知"的最佳注脚。' },
+    { images: ['media/posters-food/shark-fin-soup.jpg'], title: '碗仔翅', category: '', meta: '"唔食唔知"港式美食系列海报', tools: 'Illustrator / Photoshop', desc: '以赭石红褐为主色调，模拟高汤勾芡后的浓稠色泽，暗合"羹汤"类食物的温暖饱腹属性。', concept: '"唔食唔知"系列海报并非简单的美食展示，而是一次港式饮食文化的视觉考古与当代重构。通过色彩通感、材质叙事、字体考古与插画转译，将"茶餐厅"这一充满烟火气的空间场景，浓缩为可传播、可收藏、可共鸣的视觉符号。在"国潮"泛滥的当下，本设计选择以克制的复古、精准的在地性、不媚俗的市井气，构建差异化的品牌认知——让海报本身，成为"唔食唔知"的最佳注脚。' },
+    { images: ['media/posters-food/pineapple-bun.jpg'], title: '菠萝包', category: '', meta: '"唔食唔知"港式美食系列海报', tools: 'Illustrator / Photoshop', desc: '以焦糖橙黄为主色调，复刻菠萝包表面酥皮的焦糖化色泽，唤起烘焙香气的热感联想。', concept: '"唔食唔知"系列海报并非简单的美食展示，而是一次港式饮食文化的视觉考古与当代重构。通过色彩通感、材质叙事、字体考古与插画转译，将"茶餐厅"这一充满烟火气的空间场景，浓缩为可传播、可收藏、可共鸣的视觉符号。在"国潮"泛滥的当下，本设计选择以克制的复古、精准的在地性、不媚俗的市井气，构建差异化的品牌认知——让海报本身，成为"唔食唔知"的最佳注脚。' },
+    { images: ['media/posters-food/shrimp-wonton.jpg'], title: '鲜虾云吞', category: '', meta: '"唔食唔知"港式美食系列海报', tools: 'Illustrator / Photoshop', desc: '以竹青翠绿为主色调，以葱花、青菜的鲜活绿色锚定"鲜虾"的生鲜感，与云吞皮的暖粉形成互补对冲。', concept: '"唔食唔知"系列海报并非简单的美食展示，而是一次港式饮食文化的视觉考古与当代重构。通过色彩通感、材质叙事、字体考古与插画转译，将"茶餐厅"这一充满烟火气的空间场景，浓缩为可传播、可收藏、可共鸣的视觉符号。在"国潮"泛滥的当下，本设计选择以克制的复古、精准的在地性、不媚俗的市井气，构建差异化的品牌认知——让海报本身，成为"唔食唔知"的最佳注脚。' },
+    { images: ['media/posters-food/egg-puff.jpg'], title: '鸡蛋仔', category: '', meta: '"唔食唔知"港式美食系列海报', tools: 'Illustrator / Photoshop', desc: '以琥珀暖棕为主色调，呼应蛋浆在高温模具中形成的金黄焦边，传递"外脆内软"的口感暗示。', concept: '"唔食唔知"系列海报并非简单的美食展示，而是一次港式饮食文化的视觉考古与当代重构。通过色彩通感、材质叙事、字体考古与插画转译，将"茶餐厅"这一充满烟火气的空间场景，浓缩为可传播、可收藏、可共鸣的视觉符号。在"国潮"泛滥的当下，本设计选择以克制的复古、精准的在地性、不媚俗的市井气，构建差异化的品牌认知——让海报本身，成为"唔食唔知"的最佳注脚。' }
+  ],
+  perfume: Array.from({length:8},(_,i)=>({
+    images: ['media/posters-perfume/perfume-0'+(i+1)+'.png'],
+    title: '香水海报 '+(i+1),
+    category: '',
+    meta: '2025 · 电商系列',
+    tools: 'Photoshop / Image2 / 即梦',
+    desc: '香水电商平台宣传海报，针对不同香型定位设计差异化的视觉风格。',
+    concept: '本系列以"无饰之奢"为核心理念，通过极简留白与光影叙事构建高知女性的嗅觉画像。首屏以岩石、碎花与暖调光线奠定克制奢华的基调；三场景分镜以6:30AM白衬衫、3:00PM骨瓷茶、11:00PM羊绒围巾锚定通勤者的完整一日，将香氛转化为可触摸的生活切片。品牌故事屏以时间轴串联手绘手稿与工坊影像，在双重曝光中沉淀四十年英伦匠心；参数页则以结构化信息完成理性决策闭环。整体色谱控制在燕麦白、暖棕与深咖之间，摒弃高饱和的喧嚣，以"近身可闻，隔桌不留痕"的嗅觉隐喻，呼应都市白领低调自持的审美取向。'
+  })),
+  operations: [
+    { images: ['media/operations/3977d6c7e959f32ba4aa72aa497356c2.jpg'], title: '数据总览', category: '运营数据', meta: 'Bilibili 创作者后台', concept: 'Bilibili 账号运营核心数据概览，涵盖播放量、粉丝增长、互动数据等多维度指标，为内容策略提供数据支撑。' },
+    { images: ['media/operations/1720a3534d02e142dc510aad8e6567fe.jpg','media/operations/3ca1b8ae77d2227e85a657df30b24fba.jpg','media/operations/71b8c899b3b383d76136a0736065b18a.jpg'], title: '优秀作品', category: '运营数据', meta: 'Bilibili 创作者后台 · 共3张', concept: '在 Bilibili 平台发布的优质视频作品，通过后台数据可直观看到播放量、互动率、粉丝增长等关键指标的表现，为后续选题与内容优化提供参考依据。' }
+  ],
+  automation: [
+    {
+      images: [
+        'media/automation/本地日报工作流.png',
+        'media/automation/电子邮件工作流.png',
+        'media/automation/obsidian日报.png',
+        'media/automation/电子邮件.png',
+        'media/automation/趋势表1.png',
+        'media/automation/趋势表2.png',
+        'media/automation/skills.png'
+      ],
+      title: '多平台热搜自动化抓取与 AI 解读系统',
+      category: '自动化工作流',
+      meta: '2026 · N8N + Claude Code',
+      tools: 'N8N · Claude Code · Obsidian · SMTP',
+      desc: '搭建了一套模块化的数据工作流，在 N8N 中一键触发后自动执行：多平台（微博、知乎、百度等）热搜数据抓取 → 调用 Claude Code 进行 AI 解读分析 → 生成结构化日报与趋势分析报表。解读完成后通过两条通道分发：自动归档至 Obsidian 本地仓库，同时通过 SMTP 邮件推送至指定邮箱。每日运行一次，触发后全流程无需人工干预。',
+      concept: '以「信息减负」为出发点，将每日碎片化的热搜信息通过 AI 结构化处理，提炼出有价值的趋势洞察。系统采用模块化架构——数据抓取层、AI 解读层、输出分发层彼此解耦，新增输出通道无需改动上游逻辑。工作流通过 N8N 可视化编排，配合 Claude Code 的技能体系实现深度 AI 解读，稳定运行数月零故障。'
+    }
+  ]
+};
+
+// ===== Detail Overlay State =====
+let detailCat = '', detailIdx = 0, detailImgIdx = 0;
+
+function openDetail(cat, idx) {
+  const item = workDB[cat] && workDB[cat][idx];
+  if (!item) return;
+
+  detailCat = cat;
+  detailIdx = idx;
+  detailImgIdx = 0;
+
+  const overlay = document.getElementById('detailOverlay');
+  const catEl = document.getElementById('detailCategory');
+  const hasCat = item.category && item.category.trim();
+  catEl.textContent = hasCat ? item.category : '';
+  catEl.style.display = hasCat ? '' : 'none';
+  document.getElementById('detailTitle').textContent = item.title || '';
+  document.getElementById('detailMeta').textContent = item.meta || '';
+  const descEl = document.getElementById('detailDesc');
+  const toolsEl = document.getElementById('detailTools');
+  const descLabel = document.getElementById('detailDescLabel');
+  const toolsLabel = document.getElementById('detailToolsLabel');
+  const hasDesc = item.desc && item.desc.trim();
+  const hasTools = item.tools && item.tools.trim();
+  descLabel.style.display = hasDesc ? '' : 'none';
+  descEl.style.display = hasDesc ? '' : 'none';
+  toolsLabel.style.display = hasTools ? '' : 'none';
+  toolsEl.style.display = hasTools ? '' : 'none';
+  descEl.textContent = item.desc || '';
+  toolsEl.textContent = item.tools || '';
+  document.getElementById('detailConcept').textContent = item.concept || '';
+
+  // Handle images
+  const imgWrap = document.getElementById('detailImageWrap');
+  const imgEl = document.getElementById('detailImage');
+  const nav = document.getElementById('detailImageNav');
+  const counter = document.getElementById('detailImgCounter');
+
+  if (item.placeholderImg) {
+    // Show placeholder
+    if (item.isFlow) {
+      imgWrap.innerHTML = '<div class="detail-placeholder-card"><div style="font-size:32px;font-family:var(--font-song);color:var(--border-hover);margin-bottom:12px;letter-spacing:0.15em">[ 流程图 ]</div><div>多平台热搜抓取 → AI 解读 → 结构化报告 → 自动归档</div><div style="margin-top:12px;padding:4px 16px;border:1px solid var(--border);font-size:11px;letter-spacing:0.1em">示意图待补充</div></div>';
+    } else {
+      imgWrap.innerHTML = '<div class="detail-placeholder-card"><div style="font-size:28px;margin-bottom:8px;opacity:0.3">🎬</div><div>封面待补充</div><div style="margin-top:8px;padding:4px 16px;border:1px solid var(--border);font-size:11px;letter-spacing:0.08em">后续替换为作品封面</div></div>';
+    }
+    nav.style.display = 'none';
+  } else {
+    // Show image(s)
+    imgWrap.innerHTML = '';
+    imgEl.src = '';
+    imgWrap.appendChild(imgEl);
+    imgEl.src = item.images[0] || '';
+    nav.style.display = item.images.length > 1 ? 'flex' : 'none';
+    counter.textContent = '1/' + item.images.length;
+  }
+
+  // Determine video playability — show play button in detail for video tab
+  // (Not needed in the detail overlay since it's informational)
+
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('detailBody').scrollTop = 0;
+}
+
+function closeDetail() {
+  document.getElementById('detailOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ===== Card Overlay (通用小卡片切换) =====
+let pcSource = 'photo';
+let pcIdx = 0;
+let pcImgIdx = 0;
+
+function openCardOverlay(source, idx, navigating, subIdx) {
+  const items = workDB[source];
+  if (!items || !items[idx]) return;
+  pcSource = source;
+  pcIdx = idx;
+  pcImgIdx = subIdx || 0;
+  const item = items[idx];
+  document.getElementById('pcTitle').textContent = item.title || '';
+  document.getElementById('pcMeta').textContent = item.meta || '';
+  document.getElementById('pcConcept').textContent = item.concept || '';
+  document.getElementById('pcCounter').textContent = (idx + 1) + '/' + items.length;
+
+  // Image sub-navigation
+  const imgNav = document.getElementById('pcImgNav');
+  const dots = document.getElementById('pcImgDots');
+  if (item.images && item.images.length > 1) {
+    imgNav.style.display = 'flex';
+    dots.textContent = (pcImgIdx + 1) + '/' + item.images.length;
+  } else {
+    imgNav.style.display = 'none';
+  }
+
+  // Image fade transition on nav
+  const img = document.getElementById('pcImage');
+  if (navigating) {
+    img.style.opacity = '0';
+    setTimeout(() => {
+      img.src = item.images[pcImgIdx] || '';
+      img.style.opacity = '1';
+    }, 180);
+  } else {
+    img.src = item.images[pcImgIdx] || '';
+  }
+
+  document.getElementById('photoCardOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.querySelector('.photo-card .pc-body').scrollTop = 0;
+}
+
+function pcImgNav(dir) {
+  const item = workDB[pcSource] && workDB[pcSource][pcIdx];
+  if (!item || !item.images || item.images.length < 2) return;
+  pcImgIdx = (pcImgIdx + dir + item.images.length) % item.images.length;
+  openCardOverlay(pcSource, pcIdx, true, pcImgIdx);
+}
+
+function closePhotoCard() {
+  const overlay = document.getElementById('photoCardOverlay');
+  overlay.classList.add('closing');
+  setTimeout(() => {
+    overlay.classList.remove('open', 'closing');
+    document.body.style.overflow = '';
+  }, 180);
+}
+
+function photoCardNav(dir) {
+  const items = workDB[pcSource];
+  if (!items || items.length < 2) return;
+  pcIdx = (pcIdx + dir + items.length) % items.length;
+  openCardOverlay(pcSource, pcIdx, true);
+}
+
+const pcOverlay = document.getElementById('photoCardOverlay');
+pcOverlay.addEventListener('click', closePhotoCard);
+document.querySelector('.photo-card')?.addEventListener('click', e => e.stopPropagation());
+
+
+function detailImgNav(dir) {
+  const item = workDB[detailCat] && workDB[detailCat][detailIdx];
+  if (!item || !item.images || item.images.length < 2) return;
+  detailImgIdx = (detailImgIdx + dir + item.images.length) % item.images.length;
+  const imgEl = document.getElementById('detailImage');
+  imgEl.src = item.images[detailImgIdx];
+  document.getElementById('detailImgCounter').textContent = (detailImgIdx + 1) + '/' + item.images.length;
+}
+
+// ===== Nav =====
+const h = document.getElementById('hamburger'), nl = document.getElementById('navLinks');
+h.addEventListener('click', () => nl.classList.toggle('open'));
+document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => nl.classList.remove('open')));
+
+// ===== Scroll Reveal (每次进入视口都触发) =====
+const revEls = document.querySelectorAll('.reveal');
+const revObs = new IntersectionObserver(es => {
+  es.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('in-view');
+    else e.target.classList.remove('in-view');
+  });
+}, { threshold: 0.12 });
+revEls.forEach(el => revObs.observe(el));
+
+// ===== Neural Animation Reset (离开视口冻结，回来重播) =====
+const nnBlock = document.querySelector('.side-icons');
+if (nnBlock) {
+  const nnObs = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+      if (nnBlock.classList.contains('nn-stopped')) {
+        nnBlock.classList.remove('nn-stopped');
+        void nnBlock.offsetWidth;
+      }
+    } else {
+      nnBlock.classList.add('nn-stopped');
+    }
+  }, { threshold: 0.25 });
+  nnObs.observe(nnBlock.closest('.block-side') || nnBlock);
+}
+
+// ===== Tabs =====
+const tabBtns = document.querySelectorAll('.tab-btn'), tabPanels = document.querySelectorAll('.tab-panel');
+tabBtns.forEach(b => {
+  b.addEventListener('click', () => {
+    tabBtns.forEach(x => x.classList.remove('active'));
+    tabPanels.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    document.getElementById('panel-' + b.dataset.tab).classList.add('active');
+  });
+});
+
+// ===== Detail Overlay Close Events =====
+const detailOverlay = document.getElementById('detailOverlay');
+detailOverlay.addEventListener('click', closeDetail);
+document.getElementById('detailModal')?.addEventListener('click', e => e.stopPropagation());
+// Use event delegation for modal click stop
+document.querySelector('.detail-modal')?.addEventListener('click', e => e.stopPropagation());
+
+document.addEventListener('keydown', e => {
+  // Detail overlay navigation
+  if (document.getElementById('detailOverlay').classList.contains('open')) {
+    if (e.key === 'Escape') closeDetail();
+    if (e.key === 'ArrowLeft') detailImgNav(-1);
+    if (e.key === 'ArrowRight') detailImgNav(1);
+  }
+  // Photo card navigation
+  if (document.getElementById('photoCardOverlay').classList.contains('open')) {
+    if (e.key === 'Escape') closePhotoCard();
+    if (e.key === 'ArrowLeft') photoCardNav(-1);
+    if (e.key === 'ArrowRight') photoCardNav(1);
+  }
+});
+
+// ===== Video Modal =====
+const vm = document.getElementById('videoModal'), vi = document.getElementById('videoIframe');
+function openVideo(src) {
+  // Close detail if open
+  if (detailOverlay.classList.contains('open')) closeDetail();
+  vi.src = src;
+  vm.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeVideo() {
+  vi.src = '';
+  vm.classList.remove('open');
+  document.body.style.overflow = '';
+}
+vm.addEventListener('click', closeVideo);
+
+// Connect video work cards: override openDetail to detect video tab
+</script>
+</body>
+</html>
