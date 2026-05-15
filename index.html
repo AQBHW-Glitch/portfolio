@@ -71,7 +71,7 @@ nav .container{display:flex;justify-content:space-between;align-items:center;wid
 
 /* ===== Hero ===== */
 .hero{
-  min-height:100vh;display:flex;align-items:center;
+  min-height:100vh;min-height:100dvh;display:flex;align-items:center;
   padding:80px 0 40px;position:relative;overflow:hidden
 }
 .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;min-height:70vh}
@@ -704,9 +704,10 @@ footer p{font-size:12px;color:var(--ink-secondary)}
   .photo-card .pc-body{grid-template-columns:1fr}
   .photo-card .pc-image-wrap{min-height:200px;max-height:40vh}
   .photo-card .pc-image-wrap img{max-height:38vh}
-  .photo-card .pc-info{border-left:none;border-top:1px solid var(--border);padding:20px 18px;max-height:220px}
-  .photo-card .pc-info .pc-concept{padding-left:12px;max-height:30vh;font-size:13px}
+  .photo-card .pc-info{border-left:none;border-top:1px solid var(--border);padding:20px 18px;max-height:none;flex:1}
+  .photo-card .pc-info .pc-concept{padding-left:12px;max-height:none;font-size:13px}
   .photo-card{max-height:90vh;width:95%}
+  .photo-card .pc-body{overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y}
 }
 
 /* ===== Video Modal (keep for play button) ===== */
@@ -754,10 +755,11 @@ footer p{font-size:12px;color:var(--ink-secondary)}
 @media(max-width:768px){
   .block-side .side-icons{min-height:200px}
   .exp-grid{grid-template-columns:1fr}
-  .detail-image-section{padding:8px 0}
-  .detail-info-section{padding:20px 20px 28px}
+  .detail-image-section{padding:8px 0;min-height:200px;max-height:40vh}
+  .detail-info-section{max-height:45vh;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;padding:20px 20px 28px}
   .detail-image-nav{bottom:8px}
-  .detail-body{grid-template-columns:1fr}
+  .detail-body{grid-template-columns:1fr;max-height:none;overflow:visible}
+  .detail-modal{overflow:visible}
   .skills-grid{grid-template-columns:repeat(2,1fr)}
   :root{--section-py:80px}
 }
@@ -774,6 +776,10 @@ footer p{font-size:12px;color:var(--ink-secondary)}
   .work-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
     .contact-grid{grid-template-columns:1fr}
   .hero-left h1{font-size:clamp(42px,10vw,56px)}
+  .section-title{font-size:clamp(22px,5vw,28px);margin-bottom:28px}
+  .case-content h3{font-size:15px}
+  .exp-card h3{font-size:18px}
+  .manifesto-block h3{font-size:18px}
   .skills-grid{grid-template-columns:1fr 1fr}
   .detail-modal{width:95%}
   .detail-info-section{padding:20px}
@@ -785,9 +791,23 @@ footer p{font-size:12px;color:var(--ink-secondary)}
   .work-grid{grid-template-columns:1fr}
   .photo-masonry{column-count:1}
   .tabs{overflow-x:auto}
-  .tab-btn{padding:10px 14px;font-size:12px;white-space:nowrap}
+  .tab-btn{padding:10px 14px;font-size:12px;white-space:nowrap;flex-shrink:0}
   .skills-grid{grid-template-columns:1fr}
   .detail-overlay{padding:12px}
+  .photo-card-overlay{padding:8px}
+  .photo-card{width:100%;max-height:96vh}
+  .photo-card .pc-image-wrap{min-height:180px;max-height:35vh}
+  .photo-card .pc-info{padding:14px 14px 20px}
+  .photo-card .pc-nav{padding:6px}
+  .detail-info-section{max-height:40vh;padding:16px 14px 24px}
+  .detail-image-section{min-height:160px;max-height:35vh}
+  .btn{padding:14px 28px;font-size:14px}
+  .hero-cta{gap:10px}
+  .about-intro{margin-bottom:40px}
+  .award-item{flex:1 1 100%}
+  .case-content h3{font-size:14px}
+  .case-content .case-cat{font-size:9px}
+  .case-content p{font-size:12px}
 }
 @media(max-width:768px)and (min-width:481px){
   .photo-masonry{column-count:2}
@@ -1043,28 +1063,9 @@ footer p{font-size:12px;color:var(--ink-secondary)}
     <!-- Tab: Video -->
     <div class="tab-panel active" id="panel-video">
       <div class="work-grid">
-        <div class="work-card" onclick="window.open('https://www.bilibili.com/video/BV1rK5e6TE2L/','_blank')">
-          <div class="card-image">
-            <img src="media/video/short-film-cover.jpg" alt="艾启心扉" loading="lazy">
-            <div class="play-badge">PLAY</div>
-            <div class="card-overlay">
-              <div class="tt">校园微电影《艾启心扉》</div>
-              <div class="st">剧情短片 &middot; 2025</div>
-            </div>
-          </div>
-        </div>
-        <div class="work-card" data-zoom="cover" onclick="window.open('https://www.bilibili.com/video/BV1HP5e6zEZn/','_blank')">
-          <div class="card-image">
-            <img src="media/video/stopmotion-cover.png" alt="校园一日" loading="lazy">
-            <div class="label-tag">定格动画</div>
-            <div class="play-badge">PLAY</div>
-            <div class="card-overlay">
-              <div class="tt">定格动画《校园一日》</div>
-              <div class="st">逐帧动画 &middot; 2023</div>
-            </div>
-          </div>
-        </div>
-        <div class="work-card" data-zoom="cover" onclick="window.open('https://www.bilibili.com/video/BV1bM6FBEEQu/','_blank')">
+        <!-- 校园微电影《艾启心扉》已下架 -->
+        <!-- 定格动画《校园一日》已下架 -->
+        <a href="https://www.bilibili.com/video/BV1bM6FBEEQu/" target="_blank" rel="noopener" class="work-card" data-zoom="cover" style="display:block;text-decoration:none;color:inherit">
           <div class="card-image">
             <img src="media/video/smsl-cover.png" alt="双木三林" loading="lazy">
             <div class="play-badge">PLAY</div>
@@ -1073,8 +1074,8 @@ footer p{font-size:12px;color:var(--ink-secondary)}
               <div class="st">影音科普 &middot; 2026</div>
             </div>
           </div>
-        </div>
-        <div class="work-card" data-zoom="cover" onclick="window.open('https://www.bilibili.com/video/BV1JPFnz3E9A/','_blank')">
+        </a>
+        <a href="https://www.bilibili.com/video/BV1JPFnz3E9A/" target="_blank" rel="noopener" class="work-card" data-zoom="cover" style="display:block;text-decoration:none;color:inherit">
           <div class="card-image">
             <img src="media/video/tp-cover.png" alt="拓品" loading="lazy">
             <div class="play-badge">PLAY</div>
@@ -1083,8 +1084,8 @@ footer p{font-size:12px;color:var(--ink-secondary)}
               <div class="st">影音科普 &middot; 2026</div>
             </div>
           </div>
-        </div>
-        <div class="work-card" data-zoom="cover" onclick="window.open('https://www.bilibili.com/video/BV1ki9VBCEGr/','_blank')">
+        </a>
+        <a href="https://www.bilibili.com/video/BV1ki9VBCEGr/" target="_blank" rel="noopener" class="work-card" data-zoom="cover" style="display:block;text-decoration:none;color:inherit">
           <div class="card-image">
             <img src="media/video/feiao-cover.jpg" alt="飞傲" loading="lazy">
             <div class="play-badge">PLAY</div>
@@ -1093,7 +1094,7 @@ footer p{font-size:12px;color:var(--ink-secondary)}
               <div class="st">影音科普 &middot; 2026</div>
             </div>
           </div>
-        </div>
+        </a>
       </div>
     </div>
 
@@ -1408,24 +1409,6 @@ footer p{font-size:12px;color:var(--ink-secondary)}
 const workDB = {
   video: [
     {
-      images: ['media/video/short-film-cover.jpg'],
-      title: '校园微电影《艾启心扉》',
-      category: '剧情短片',
-      meta: '2025 · 短片创作',
-      tools: 'Premiere Pro / After Effects',
-      desc: '一部关于艾滋病反歧视的校园微电影。通过镜头语言讲述温暖感人的故事，传递爱与包容的价值理念。从剧本分镜到后期剪辑全流程独立完成。',
-      concept: '以温暖克制的叙事手法，通过光影对比和细腻的表演捕捉，呈现校园青春题材的真实感与感染力。片头采用手绘风格标题动画，配合缓慢的钢琴配乐营造沉思氛围。'
-    },
-    {
-      images: ['media/video/stopmotion-cover.png'],
-      title: '定格动画《校园一日》',
-      category: '逐帧动画',
-      meta: '2023 · 国家公祭日主题',
-      tools: 'Premiere Pro / After Effects',
-      desc: '以国家公祭日为主题的定格动画短片。通过逐帧拍摄的方式，展现对历史的铭记与对和平的珍视。',
-      concept: '采用剪纸风格与黑白基调，通过逐帧动画的质朴感传达沉重而肃穆的情绪。音效设计上使用环境声与低音铺垫增强沉浸感。'
-    },
-    {
       images: ['media/video/smsl-cover.png'],
       title: '双木三林 · 影音设备科普',
       category: '影音科普',
@@ -1665,9 +1648,8 @@ const revEls = document.querySelectorAll('.reveal');
 const revObs = new IntersectionObserver(es => {
   es.forEach(e => {
     if (e.isIntersecting) e.target.classList.add('in-view');
-    else e.target.classList.remove('in-view');
   });
-}, { threshold: 0.12 });
+}, { threshold: 0.08 });
 revEls.forEach(el => revObs.observe(el));
 
 // ===== Neural Animation Reset (离开视口冻结，回来重播) =====
@@ -1680,7 +1662,9 @@ if (nnBlock) {
         void nnBlock.offsetWidth;
       }
     } else {
-      nnBlock.classList.add('nn-stopped');
+      if (!('ontouchstart' in window)) {
+        nnBlock.classList.add('nn-stopped');
+      }
     }
   }, { threshold: 0.25 });
   nnObs.observe(nnBlock.closest('.block-side') || nnBlock);

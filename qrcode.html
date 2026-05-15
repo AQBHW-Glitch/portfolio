@@ -2,7 +2,8 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>作品集二维码</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>作品集二维码 · 新视界</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -21,6 +22,11 @@
     font-size: 13px; color: #555; word-break: break-all; font-family: monospace;
   }
   .tip { margin-top: 12px; font-size: 12px; color: #aaa; }
+  @media(max-width:400px){
+    .card{padding:24px 16px;border-radius:14px}
+    h1{font-size:18px}
+    #qrcode img{width:180px!important;height:180px!important}
+  }
 </style>
 </head>
 <body>
