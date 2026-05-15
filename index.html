@@ -327,6 +327,7 @@ section{padding:var(--section-py) 0;position:relative}
 .work-card:hover{transform:translateY(-3px);border-color:var(--gold)}
 
 /* Hover zoom only affects cover images, not contain images */
+.work-card[data-zoom="cover"] .card-image{aspect-ratio:16/9;height:auto}
 .work-card[data-zoom="cover"] .card-image img{object-fit:cover;padding:0}
 .work-card[data-zoom="cover"]:hover .card-image img{transform:scale(1.05)}
 
@@ -702,8 +703,8 @@ footer p{font-size:12px;color:var(--ink-secondary)}
 
 @media(max-width:700px){
   .photo-card .pc-body{grid-template-columns:1fr}
-  .photo-card .pc-image-wrap{min-height:200px;max-height:40vh}
-  .photo-card .pc-image-wrap img{max-height:38vh}
+  .photo-card .pc-image-wrap{min-height:200px;max-height:50vh}
+  .photo-card .pc-image-wrap img{max-height:48vh}
   .photo-card .pc-info{border-left:none;border-top:1px solid var(--border);padding:20px 18px;max-height:none;flex:1}
   .photo-card .pc-info .pc-concept{padding-left:12px;max-height:none;font-size:13px}
   .photo-card{max-height:90vh;width:95%}
@@ -791,7 +792,7 @@ footer p{font-size:12px;color:var(--ink-secondary)}
   .work-grid{grid-template-columns:1fr}
   .card-image{display:block;height:auto;overflow:visible}
   .card-image img{display:block;width:100%;height:auto;padding:0}
-  .work-card[data-zoom="cover"] .card-image img{object-fit:contain;padding:0}
+  .work-card[data-zoom="cover"] .card-image img{object-fit:cover;padding:0}
   .section-title{margin-bottom:24px}
   .tabs{margin-bottom:20px;overflow-x:auto}
   .tab-btn{padding:8px 12px;font-size:11px;white-space:nowrap;flex-shrink:0}
@@ -799,9 +800,11 @@ footer p{font-size:12px;color:var(--ink-secondary)}
   .skills-grid{grid-template-columns:1fr}
   .detail-overlay{padding:12px}
   .photo-card-overlay{padding:8px}
-  .photo-card{width:100%;max-height:96vh}
-  .photo-card .pc-image-wrap{min-height:180px;max-height:35vh}
-  .photo-card .pc-info{padding:14px 14px 20px}
+  .photo-card{width:100%;max-height:98vh}
+  .photo-card .pc-image-wrap{min-height:160px;max-height:55vh}
+  .photo-card .pc-image-wrap img{max-height:52vh;padding:4px}
+  .photo-card .pc-info{padding:10px 14px 16px}
+  .photo-card .pc-info .pc-concept{font-size:13px;max-height:28vh;overflow-y:auto}
   .photo-card .pc-nav{padding:6px}
   .detail-info-section{max-height:40vh;padding:16px 14px 24px}
   .detail-image-section{min-height:160px;max-height:35vh}
@@ -1239,7 +1242,7 @@ footer p{font-size:12px;color:var(--ink-secondary)}
       <div class="exp-card reveal d2">
         <div class="period">2024.04 — 2024.11</div>
         <h3>校园融媒体中心</h3>
-        <div class="role">部员 &middot; 视觉创作</div>
+        <div class="role">部员 &middot; 摄影摄像部</div>
         <p>
           负责官方微信公众号推文配图与抖音账号视频素材制作。
           从无脑按快门到有目的有意识地完成任务，经历多次对标优秀作品的参考与自我进化。
@@ -1388,7 +1391,7 @@ footer p{font-size:12px;color:var(--ink-secondary)}
         <div class="pc-title" id="pcTitle"></div>
         <div class="pc-meta" id="pcMeta"></div>
         <div class="pc-divider"></div>
-        <div class="pc-label">创意说明</div>
+        <div class="pc-label" id="pcLabel">创意说明</div>
         <div class="pc-concept" id="pcConcept"></div>
       </div>
     </div>
@@ -1468,8 +1471,8 @@ const workDB = {
     concept: '本系列以"无饰之奢"为核心理念，通过极简留白与光影叙事构建高知女性的嗅觉画像。首屏以岩石、碎花与暖调光线奠定克制奢华的基调；三场景分镜以6:30AM白衬衫、3:00PM骨瓷茶、11:00PM羊绒围巾锚定通勤者的完整一日，将香氛转化为可触摸的生活切片。品牌故事屏以时间轴串联手绘手稿与工坊影像，在双重曝光中沉淀四十年英伦匠心；参数页则以结构化信息完成理性决策闭环。整体色谱控制在燕麦白、暖棕与深咖之间，摒弃高饱和的喧嚣，以"近身可闻，隔桌不留痕"的嗅觉隐喻，呼应都市白领低调自持的审美取向。'
   })),
   operations: [
-    { images: ['media/operations/3977d6c7e959f32ba4aa72aa497356c2.jpg'], title: '数据总览', category: '运营数据', meta: 'Bilibili 创作者后台', concept: 'Bilibili 账号运营核心数据概览，涵盖播放量、粉丝增长、互动数据等多维度指标，为内容策略提供数据支撑。' },
-    { images: ['media/operations/1720a3534d02e142dc510aad8e6567fe.jpg','media/operations/3ca1b8ae77d2227e85a657df30b24fba.jpg','media/operations/71b8c899b3b383d76136a0736065b18a.jpg'], title: '优秀作品', category: '运营数据', meta: 'Bilibili 创作者后台 · 共3张', concept: '在 Bilibili 平台发布的优质视频作品，通过后台数据可直观看到播放量、互动率、粉丝增长等关键指标的表现，为后续选题与内容优化提供参考依据。' }
+    { images: ['media/operations/3977d6c7e959f32ba4aa72aa497356c2.jpg'], title: '数据总览', category: '运营数据', meta: 'Bilibili 创作者后台', concept: '【情境】账号起步阶段流量低迷，内容曝光有限。<br>【任务】建立一套系统化的内容策略，从封面设计、标题优化到内容节奏全面提升内容竞争力。<br>【行动】将封面设计前置到选题环节，用封标反推内容方向；前3秒设置悬念或视觉钩子提高留存率；在影音科普主方向下延伸产品美学、使用场景等关联内容，拓展受众覆盖面。<br>【成果】封面点击率高于同类83-90%，3秒跳出率仅24%，近90天播放量14,000+，有效提升粉丝粘性与流量转化效率。' },
+    { images: ['media/operations/1720a3534d02e142dc510aad8e6567fe.jpg','media/operations/3ca1b8ae77d2227e85a657df30b24fba.jpg','media/operations/71b8c899b3b383d76136a0736065b18a.jpg'], title: '优秀作品', category: '运营数据', meta: 'Bilibili 创作者后台 · 共3张', concept: '【情境】单一内容方向流量有限，增长遇到瓶颈。<br>【任务】在主方向稳住基本盘的同时，探索相关联的内容方向，触达更广泛的观众群体。<br>【行动】通过封面和标题的差异化测试，锁定高点击率组合；前3秒以反常识视角或问题切入，快速抓住注意力；在影音科普主线中延伸产品美学、使用场景等关联内容，保持方向统一的前提下扩大受众面。<br>【成果】多方向内容稳定产出播放，粉丝粘性显著提升，流量转化效率持续增长。' }
   ],
   automation: [
     {
@@ -1566,7 +1569,7 @@ let pcSource = 'photo';
 let pcIdx = 0;
 let pcImgIdx = 0;
 
-function openCardOverlay(source, idx, navigating, subIdx) {
+function openCardOverlay(source, idx, subIdx) {
   const items = workDB[source];
   if (!items || !items[idx]) return;
   pcSource = source;
@@ -1575,7 +1578,8 @@ function openCardOverlay(source, idx, navigating, subIdx) {
   const item = items[idx];
   document.getElementById('pcTitle').textContent = item.title || '';
   document.getElementById('pcMeta').textContent = item.meta || '';
-  document.getElementById('pcConcept').textContent = item.concept || '';
+  document.getElementById('pcConcept').innerHTML = item.concept || '';
+  document.getElementById('pcLabel').textContent = (source === 'operations') ? '项目经历' : '创意说明';
   document.getElementById('pcCounter').textContent = (idx + 1) + '/' + items.length;
 
   // Image sub-navigation
@@ -1588,17 +1592,9 @@ function openCardOverlay(source, idx, navigating, subIdx) {
     imgNav.style.display = 'none';
   }
 
-  // Image fade transition on nav
+  // Image
   const img = document.getElementById('pcImage');
-  if (navigating) {
-    img.style.opacity = '0';
-    setTimeout(() => {
-      img.src = item.images[pcImgIdx] || '';
-      img.style.opacity = '1';
-    }, 180);
-  } else {
-    img.src = item.images[pcImgIdx] || '';
-  }
+  img.src = item.images[pcImgIdx] || '';
 
   document.getElementById('photoCardOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -1609,7 +1605,8 @@ function pcImgNav(dir) {
   const item = workDB[pcSource] && workDB[pcSource][pcIdx];
   if (!item || !item.images || item.images.length < 2) return;
   pcImgIdx = (pcImgIdx + dir + item.images.length) % item.images.length;
-  openCardOverlay(pcSource, pcIdx, true, pcImgIdx);
+  document.getElementById('pcImage').src = item.images[pcImgIdx] || '';
+  document.getElementById('pcImgDots').textContent = (pcImgIdx + 1) + '/' + item.images.length;
 }
 
 function closePhotoCard() {
@@ -1625,7 +1622,7 @@ function photoCardNav(dir) {
   const items = workDB[pcSource];
   if (!items || items.length < 2) return;
   pcIdx = (pcIdx + dir + items.length) % items.length;
-  openCardOverlay(pcSource, pcIdx, true);
+  openCardOverlay(pcSource, pcIdx);
 }
 
 const pcOverlay = document.getElementById('photoCardOverlay');
