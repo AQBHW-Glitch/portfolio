@@ -126,27 +126,21 @@ nav .container{display:flex;justify-content:space-between;align-items:center;wid
   width:100%;height:60vh;position:relative;
   display:flex;align-items:flex-end;justify-content:flex-end
 }
-.hero-right-empty .deco-grid{
+.penrose-3d-scene{
   position:absolute;inset:0;
-  background-image:
-    radial-gradient(var(--ink) 1px,transparent 1px),
-    linear-gradient(to right,var(--ink) 0.5px,transparent 0.5px),
-    linear-gradient(to bottom,var(--ink) 0.5px,transparent 0.5px);
-  background-size:60px 60px,60px 60px,60px 60px;
-  opacity:0.1
+  perspective:1200px;transform-style:preserve-3d;
+  transform-origin:center center;
+  animation:sceneRotate 24s linear infinite
 }
-.hero-right-empty .penrose-stairs{
-  position:absolute;inset:0;
-  width:100%;height:100%;
-  color:var(--ink);overflow:visible;pointer-events:none;
-  animation:stairsSketch 5s ease-out forwards
+@keyframes sceneRotate{
+  from{transform:rotateY(0deg)}
+  to{transform:rotateY(360deg)}
 }
-@keyframes stairsSketch{
-  0%{opacity:0;transform:scale(0.92)}
-  15%{opacity:1;transform:scale(0.97)}
-  40%{opacity:0.85;transform:scale(1)}
-  100%{opacity:0;transform:scale(1)}
+.penrose-3d-scene .pl{
+  position:absolute;inset:0;width:100%;height:100%;
+  transform-style:preserve-3d
 }
+.penrose-3d-scene .pl svg{display:block;width:100%;height:100%;overflow:visible}
 .hero-right-empty .deco-dot{
   position:absolute;top:30%;left:25%;
   width:4px;height:4px;background:var(--gold);opacity:0.6
@@ -174,6 +168,60 @@ section{padding:var(--section-py) 0;position:relative}
   font-family:var(--font-song);font-size:clamp(28px,3.5vw,40px);font-weight:600;
   color:var(--ink);line-height:1.3;letter-spacing:0.04em;margin-bottom:40px;
   text-rendering:optimizeLegibility
+}
+
+/* ===== Personal Intro ===== */
+.intro-personal{display:grid;grid-template-columns:320px 1fr;gap:48px 56px;align-items:start}
+.intro-personal .ip-avatar{
+  aspect-ratio:3/4;background:var(--img-bg);border-radius:4px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  position:relative
+}
+.intro-personal .ip-avatar img{width:100%;height:100%;object-fit:cover}
+.intro-personal .ip-name{
+  font-family:var(--font-song);font-size:clamp(24px,2.8vw,34px);font-weight:600;
+  color:var(--ink);letter-spacing:0.06em;margin-bottom:4px
+}
+.intro-personal .ip-role{font-size:14px;color:var(--ink-secondary);letter-spacing:0.04em;margin-bottom:24px}
+
+/* Highlight card — 运营经验 */
+.ip-highlight{
+  padding:20px 24px;background:var(--gold-light);border-left:3px solid var(--gold);
+  border-radius:0 4px 4px 0;margin-bottom:28px
+}
+.ip-highlight .hl-label{
+  font-size:10px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--gold-deep);margin-bottom:4px;font-family:var(--font-en)
+}
+.ip-highlight .hl-title{
+  font-family:var(--font-song);font-size:17px;font-weight:600;color:var(--ink);margin-bottom:6px
+}
+.ip-highlight .hl-desc{font-size:13px;color:var(--ink-secondary);line-height:1.8}
+
+/* Education entries */
+.ip-edu{margin-bottom:20px}
+.ip-edu .edu-heading{
+  font-size:10px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--ink-tertiary);margin-bottom:12px;font-family:var(--font-en);
+  display:flex;align-items:center;gap:10px
+}
+.ip-edu .edu-heading::after{content:'';flex:1;height:1px;background:var(--border)}
+.ip-edu .edu-row{
+  display:grid;grid-template-columns:80px 1fr;gap:4px 16px;
+  padding:10px 0;border-bottom:1px solid var(--border);align-items:baseline
+}
+.ip-edu .edu-row:last-child{border-bottom:none}
+.ip-edu .edu-row .edu-badge{
+  font-size:11px;letter-spacing:0.02em;color:var(--gold-deep);
+  font-weight:500;font-family:var(--font-hei)
+}
+.ip-edu .edu-row .edu-school{font-size:14px;color:var(--ink);font-weight:500}
+.ip-edu .edu-row .edu-major{font-size:13px;color:var(--ink-secondary);grid-column:2}
+
+/* Tagline */
+.ip-tagline{
+  font-family:var(--font-song);font-size:14px;color:var(--ink-tertiary);
+  font-style:italic;letter-spacing:0.03em;padding-top:16px;border-top:1px solid var(--border)
 }
 
 /* ===== About ===== */
@@ -749,6 +797,8 @@ footer p{font-size:12px;color:var(--ink-secondary)}
   .hero-grid{grid-template-columns:1fr;min-height:auto}
   .hero-left{max-width:100%}
   .hero-right{display:none}
+  .intro-personal{grid-template-columns:1fr;gap:32px}
+  .intro-personal .ip-avatar{max-width:200px;aspect-ratio:3/4}
   .manifesto{grid-template-columns:1fr;gap:32px}
   .block-inner{flex-direction:column;gap:24px}
   .block-side .side-icons{min-height:220px}
@@ -811,6 +861,14 @@ footer p{font-size:12px;color:var(--ink-secondary)}
   .btn{padding:14px 28px;font-size:14px}
   .hero-cta{gap:10px}
   .about-intro{margin-bottom:40px}
+  .intro-personal .ip-avatar{max-width:200px}
+  .intro-personal .ip-role{font-size:13px;margin-bottom:20px}
+  .ip-highlight{padding:16px 18px}
+  .ip-highlight .hl-title{font-size:16px}
+  .ip-highlight .hl-desc{font-size:12px}
+  .ip-edu .edu-row{grid-template-columns:1fr;gap:2px;padding:8px 0}
+  .ip-edu .edu-row .edu-major{grid-column:1}
+  .ip-tagline{font-size:13px}
   .award-item{flex:1 1 100%}
   .case-content h3{font-size:14px}
   .case-content .case-cat{font-size:9px}
@@ -831,6 +889,7 @@ footer p{font-size:12px;color:var(--ink-secondary)}
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-links" id="navLinks">
+      <li><a href="#personal">关于我</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#works">Works</a></li>
       <li><a href="#experience">Experience</a></li>
@@ -863,65 +922,105 @@ footer p{font-size:12px;color:var(--ink-secondary)}
       </div>
       <div class="hero-right">
         <div class="hero-right-empty">
-          <div class="deco-grid"></div>
-          <svg class="penrose-stairs" viewBox="0 0 372 283" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <path id="st" d="m0,0 37,18 -37,18 -37,-18 z"/>
-            </defs>
-            <!-- Construction guide lines -->
-            <g fill="none" stroke="currentColor" stroke-width="0.4" stroke-linecap="round" opacity="0.07" stroke-dasharray="2,4">
-              <circle cx="186" cy="141" r="115"/>
-              <circle cx="186" cy="141" r="85"/>
-              <line x1="65" y1="141" x2="307" y2="141"/>
-              <line x1="186" y1="30" x2="186" y2="253"/>
-            </g>
-            <!-- Main staircase linework -->
-            <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round" opacity="0.4">
-              <!-- Step tops -->
-              <use href="#st" x="242" y="18"/>
-              <use href="#st" x="205" y="28"/>
-              <use href="#st" x="168" y="38"/>
-              <use href="#st" x="131" y="48"/>
-              <use href="#st" x="94" y="58"/>
-              <use href="#st" x="57" y="68"/>
-              <use href="#st" x="279" y="43"/>
-              <use href="#st" x="94" y="78"/>
-              <use href="#st" x="131" y="88"/>
-              <use href="#st" x="168" y="98"/>
-              <use href="#st" x="205" y="108"/>
-              <use href="#st" x="242" y="118"/>
-              <use href="#st" x="279" y="93"/>
-              <use href="#st" x="316" y="68"/>
-              <!-- Side riser contours -->
-              <path d="m279,36 -37,18 v-8 l-37,18 v-8 l-37,18 v-8 l-37,18 v-8 l-37,18 v77 h185 z"/>
-              <path d="m316,61 v7 l-37,18 v-7 z"/>
-              <path d="m316,104 -37,-18 v-7 l-37,-18 v99 h74 z"/>
-              <path d="m353,86 -37,18 v7 l-37,18 v7 l-37,18 v113 l111,-54 z"/>
-              <path d="m20,159 v-73 l37,18 v-8 l37,18 v-8 l37,18 v-8 l37,18 v-8 l37,18 v-8 l37,18 v113 z"/>
-            </g>
-            <!-- Second offset pass (sketch feel) -->
-            <g fill="none" stroke="currentColor" stroke-width="0.5" stroke-linejoin="round" stroke-linecap="round" opacity="0.12" stroke-dasharray="3,5">
-              <use href="#st" x="243" y="19"/>
-              <use href="#st" x="206" y="29"/>
-              <use href="#st" x="169" y="39"/>
-              <use href="#st" x="132" y="49"/>
-              <use href="#st" x="95" y="59"/>
-              <use href="#st" x="58" y="69"/>
-              <path d="m280,37 -37,18 v-8 l-37,18 v-8 l-37,18 v-8 l-37,18 v-8 l-37,18 v77 h185 z"/>
-            </g>
-            <!-- Gold accent lines -->
-            <g fill="none" stroke="var(--gold)" stroke-width="0.7" stroke-linejoin="round" stroke-linecap="round" opacity="0.2">
-              <use href="#st" x="242" y="18"/>
-              <use href="#st" x="57" y="68"/>
-              <path d="m279,36 -37,18 v-8 l-37,18 v-8 l-37,18 v-8 l-37,18 v-8 l-37,18 v77 h185 z"/>
-              <path d="m20,159 v-73 l37,18 v-8 l37,18 v-8 l37,18 v-8 l37,18 v-8 l37,18 v-8 l37,18 v113 z"/>
-              <path d="m353,86 -37,18 v7 l-37,18 v7 l-37,18 v113 l111,-54 z"/>
-            </g>
-          </svg>
+          <div class="penrose-3d-scene">
+            <div class="pl" style="transform:translateZ(-45px);color:var(--ink);opacity:0.12">
+              <svg viewBox="0 0 372 283" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g stroke="currentColor" stroke-width="0.4" stroke-linecap="round" opacity="0.5" stroke-dasharray="2,4">
+                  <circle cx="186" cy="141" r="115"/>
+                  <circle cx="186" cy="141" r="85"/>
+                  <line x1="65" y1="141" x2="307" y2="141"/>
+                  <line x1="186" y1="30" x2="186" y2="253"/>
+                </g>
+              </svg>
+            </div>
+            <div class="pl" style="transform:translateZ(0);color:var(--ink);opacity:0.5">
+              <svg viewBox="0 0 372 283" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs><path id="st" d="m0,0 37,18 -37,18 -37,-18 z"/></defs>
+                <g stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round">
+                  <use href="#st" x="242" y="18"/><use href="#st" x="205" y="28"/>
+                  <use href="#st" x="168" y="38"/><use href="#st" x="131" y="48"/>
+                  <use href="#st" x="94" y="58"/><use href="#st" x="57" y="68"/>
+                  <use href="#st" x="279" y="43"/><use href="#st" x="94" y="78"/>
+                  <use href="#st" x="131" y="88"/><use href="#st" x="168" y="98"/>
+                  <use href="#st" x="205" y="108"/><use href="#st" x="242" y="118"/>
+                  <use href="#st" x="279" y="93"/><use href="#st" x="316" y="68"/>
+                  <path d="m279,36 -37,18 v-8 l-37,18 v-8 l-37,18 v-8 l-37,18 v-8 l-37,18 v77 h185 z"/>
+                  <path d="m316,61 v7 l-37,18 v-7 z"/>
+                  <path d="m316,104 -37,-18 v-7 l-37,-18 v99 h74 z"/>
+                  <path d="m353,86 -37,18 v7 l-37,18 v7 l-37,18 v113 l111,-54 z"/>
+                  <path d="m20,159 v-73 l37,18 v-8 l37,18 v-8 l37,18 v-8 l37,18 v-8 l37,18 v-8 l37,18 v113 z"/>
+                </g>
+              </svg>
+            </div>
+            <div class="pl" style="transform:translateZ(18px);color:var(--ink);opacity:0.2">
+              <svg viewBox="0 0 372 283" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs><path id="st2" d="m0,0 37,18 -37,18 -37,-18 z"/></defs>
+                <g stroke="currentColor" stroke-width="0.5" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="3,5">
+                  <use href="#st2" x="243" y="19"/><use href="#st2" x="206" y="29"/>
+                  <use href="#st2" x="169" y="39"/><use href="#st2" x="132" y="49"/>
+                  <use href="#st2" x="95" y="59"/><use href="#st2" x="58" y="69"/>
+                  <path d="m280,37 -37,18 v-8 l-37,18 v-8 l-37,18 v-8 l-37,18 v-8 l-37,18 v77 h185 z"/>
+                </g>
+              </svg>
+            </div>
+            <div class="pl" style="transform:translateZ(35px);color:var(--gold);opacity:0.4">
+              <svg viewBox="0 0 372 283" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs><path id="st3" d="m0,0 37,18 -37,18 -37,-18 z"/></defs>
+                <g stroke="currentColor" stroke-width="0.7" stroke-linejoin="round" stroke-linecap="round">
+                  <use href="#st3" x="242" y="18"/><use href="#st3" x="57" y="68"/>
+                  <path d="m279,36 -37,18 v-8 l-37,18 v-8 l-37,18 v-8 l-37,18 v-8 l-37,18 v77 h185 z"/>
+                  <path d="m20,159 v-73 l37,18 v-8 l37,18 v-8 l37,18 v-8 l37,18 v-8 l37,18 v-8 l37,18 v113 z"/>
+                  <path d="m353,86 -37,18 v7 l-37,18 v7 l-37,18 v113 l111,-54 z"/>
+                </g>
+              </svg>
+            </div>
+          </div>
           <div class="deco-dot"></div>
           <div class="deco-dot-2"></div>
           <div class="corner-accent"></div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Personal Intro ===== -->
+<section id="personal" style="background:var(--surface)">
+  <div class="container">
+    <div class="about-intro reveal">
+      <div class="accent-line"></div>
+      <p class="section-index">/ 01</p>
+      <h2 class="section-title">关于我</h2>
+    </div>
+
+    <div class="intro-personal">
+      <div class="ip-avatar reveal d1">
+        <img src="media/avatar.png" alt="梁国圳证件照">
+      </div>
+      <div>
+        <p class="ip-name reveal d1">梁国圳</p>
+        <p class="ip-role reveal d2">视觉传达设计 · 应届毕业生 · 自媒体创作者</p>
+        <div class="ip-highlight reveal d2">
+          <p class="hl-label">Experience</p>
+          <p class="hl-title">四年自营账号运营</p>
+          <p class="hl-desc">独立运营 B 站账号，从内容策划、封面标题设计到数据分析，<br>全流程自己跑通，封标点击率超同类稿件 83%–90%。</p>
+        </div>
+
+        <div class="ip-edu reveal d2">
+          <p class="edu-heading">Education</p>
+          <div class="edu-row">
+            <span class="edu-badge">全日制</span>
+            <span class="edu-school">深圳鹏城技师学院</span>
+            <span class="edu-major">新媒体与互联网应用专业</span>
+          </div>
+          <div class="edu-row">
+            <span class="edu-badge">非全日制本科</span>
+            <span class="edu-school">华南农业大学</span>
+            <span class="edu-major">视觉传达设计专业</span>
+          </div>
+        </div>
+
+        <p class="ip-tagline reveal d3">做设计也做账号，在实践中打磨对视觉和传播的理解。</p>
       </div>
     </div>
   </div>
@@ -1109,7 +1208,7 @@ footer p{font-size:12px;color:var(--ink-secondary)}
     <div class="tab-panel" id="panel-photo">
       <div class="photo-masonry">
         <div class="work-card" data-cat="photo" data-idx="0" onclick="openCardOverlay('photo',0)">
-          <div class="card-image"><img src="media/photo/photo-01.jpg" alt="摄影 01" loading="lazy"></div>
+          <div class="card-image"><img src="media/photo/photo-08.jpg" alt="摄影 08" loading="lazy"></div>
         </div>
         <div class="work-card" data-cat="photo" data-idx="1" onclick="openCardOverlay('photo',1)">
           <div class="card-image"><img src="media/photo/photo-02.png" alt="摄影 02" loading="lazy"></div>
@@ -1127,7 +1226,7 @@ footer p{font-size:12px;color:var(--ink-secondary)}
           <div class="card-image"><img src="media/photo/photo-07.jpg" alt="摄影 07" loading="lazy"></div>
         </div>
         <div class="work-card" data-cat="photo" data-idx="6" onclick="openCardOverlay('photo',6)">
-          <div class="card-image"><img src="media/photo/photo-08.jpg" alt="摄影 08" loading="lazy"></div>
+          <div class="card-image"><img src="media/photo/photo-01.jpg" alt="摄影 01" loading="lazy"></div>
         </div>
         <div class="work-card" data-cat="photo" data-idx="7" onclick="openCardOverlay('photo',7)">
           <div class="card-image"><img src="media/photo/photo-09.jpg" alt="摄影 09" loading="lazy"></div>
@@ -1445,13 +1544,13 @@ const workDB = {
     }
   ],
   photo: [
-    { images: ['media/photo/photo-01.jpg'], title: '未完成的摆动', category: '摄影', meta: '环境', concept: '蹲到孩子的高度，从秋千链条的缝隙里，看雨刚停的天台。座椅悬着半滴雨，没有人坐上去把它荡完。跷跷板翘着一头，等人来压，人没来。远处的楼隔着雾气，像一幅贴得太高的画，够不到。调色褪成旧记忆的样子——青绿的草、泛白的天、潮湿的地砖反光。熟悉，但哪里不对。像小时候某个下午，你确信自己来过这里，却想不起后来去了哪里。整个天台是一句没说完的话。雨走了，孩子也没来。只有秋千停在半途，像某个被按了暂停的童年。' },
+    { images: ['media/photo/photo-08.jpg'], title: '光尘纪', category: '摄影', meta: '环境 / 自然', concept: '光在此刻有了重量，像碎金簌簌坠落，铺满凹凸的地面。午后的最后一道倾斜——或可称之为「黄昏的入口」——将万物拖入一场私密的对话。一个人独自站立在光影之下，没有说话，只有呼吸与光影的共振。那些碎金落在他的肩头、衣摆，又顺着身体的线条滑落，仿佛时间本身在缓慢地流淌、堆叠。这不是记录性的摄影，而是一次对存在感的凝视：当光线变得有质感，它就不再仅仅是视觉现象，而是一种可触摸的情感介质；人与黄昏的对谈，无需言语，答案早已写在光影的边缘。此刻，快门声不是打断，而是对这一刻虔诚的收藏。' },
     { images: ['media/photo/photo-02.png'], title: '树影曲径', category: '摄影', meta: '环境 / 自然', concept: '正午的阳光穿过树冠，被枝叶切割成千万片碎金，簌簌落在建筑的表面与缝隙里。风过时，光斑轻轻晃动，像时间的脉搏在墙面上跳动。这一刻，建筑不再是钢筋水泥的构造物——它成了承接碎光的容器，每一道窗檐、每一寸墙面都成了光的画布。树影在脚下铺成一条曲径，通往的不是某个具体的去处，而是一种安静的状态：你站在那里，不需要做什么，光是看着光在移动，就能感到一种完整的、属于自己的平静。快门按下的瞬间，不是捕捉，而是参与——参与了一场光和树影合谋的即兴演出。' },
     { images: ['media/photo/photo-03.jpg'], title: '檐上旧梦', category: '摄影', meta: '古建筑 / 夜景', concept: '暮色沉下来的时候，飞檐的轮廓最先被天光抛弃——它们悬在半空，像一句说了一半就停在那里的话，像一场开始了吗就结束的梦。檐角翘起的弧度还保持着向上的姿态，仿佛在等某个答案。而两盏灯笼垂在檐下，亮着。灯芯攒动的微光从纸笼里透出来，晕成两团温润的橘色，不紧不慢地亮着——好像只要它们还在，这个梦就还没有结束。墙面的旧漆、瓦当的纹路、木门的蚀痕，都被这微弱的光照出了不该被忘记的细节。按下快门的那一刻，不是因为它多好看，而是因为某些东西正在被时间带走，而光还替我们留着一口呼吸。' },
     { images: ['media/photo/photo-05.png'], title: '栏外城山', category: '摄影', meta: '城市 / 风光', concept: '栏杆是一道不肯让步的界线。它把城市框在眼前——高楼、街道、车流，都在伸手可及的这一侧；而远山在另一侧，沉默地横在天际线上，近在咫尺，却远在天涯。人站在这条界线之间，一只手扶着冰凉的栏杆，另一只手悬在半空——不知道该抓住什么，也不知道该放下什么。这就是「困」与「望」之间最真实的距离：不是远山太远，而是栏杆太高。可你仍然在看。目光越过钢与水泥的网格，落在那些青灰色的轮廓上，仿佛只要看得够久，就能把自己也放到那片山色里去。没有答案，但有一个动作——抬头。而抬头本身，就已经是最好的回答。' },
     { images: ['media/photo/photo-06.jpg'], title: '幽蓝帖', category: '摄影', meta: '夜景 / 自然', concept: '幽蓝的夜空是一张被反复铺平的信笺。没有格线，没有落款，只有寂静作为底色铺满了整张纸。树枝是信纸上未干的笔迹——蘸着夜色书写的行草，有的笔画刚劲，直直地划向天际；有的欲言又止，在半途拐了个弯，留下一个未完的顿笔。这封信没有收件人，也没有寄出的打算。就像深夜睡不着时写下的那些话——写的时候没想好要写给谁，写完了也没想过要发出去，只是觉得心里有什么东西需要落在一张纸上。所有的情绪都封存在这片幽蓝里，冷冽、安静、不必被任何人理解。你站在树下抬头看的时候，像是在看自己某天夜里想说却没说出口的那句话——换了一种笔迹，写在了天上。' },
     { images: ['media/photo/photo-07.jpg'], title: '空径', category: '摄影', meta: '环境 / 光影', concept: '午后斜阳把树影拉成长长的笔触，一道一道铺在弯曲的路面上。影子从不同的方向来，在弯道处汇合、重叠、交织，像一条无声的河——从树梢流淌到地面，再沿着路面的弧度缓缓拐入远处。你站在那里，看着光与影的交界线一寸一寸地移动。不是树在动，不是路在动，是时间本身在流淌。路面是河床，影子是流水，而你是站在岸上看水的人。这条河没有浪花，只是安静地、不急不缓地把所有光影都带向午后更深的地方。没有人走在上面，但路已经替所有没来过的人走过了这个下午。' },
-    { images: ['media/photo/photo-08.jpg'], title: '光尘纪', category: '摄影', meta: '环境 / 自然', concept: '光在此刻有了重量，像碎金簌簌坠落，铺满凹凸的地面。午后的最后一道倾斜——或可称之为「黄昏的入口」——将万物拖入一场私密的对话。一个人独自站立在光影之下，没有说话，只有呼吸与光影的共振。那些碎金落在他的肩头、衣摆，又顺着身体的线条滑落，仿佛时间本身在缓慢地流淌、堆叠。这不是记录性的摄影，而是一次对存在感的凝视：当光线变得有质感，它就不再仅仅是视觉现象，而是一种可触摸的情感介质；人与黄昏的对谈，无需言语，答案早已写在光影的边缘。此刻，快门声不是打断，而是对这一刻虔诚的收藏。' },
+    { images: ['media/photo/photo-01.jpg'], title: '未完成的摆动', category: '摄影', meta: '环境', concept: '蹲到孩子的高度，从秋千链条的缝隙里，看雨刚停的天台。座椅悬着半滴雨，没有人坐上去把它荡完。跷跷板翘着一头，等人来压，人没来。远处的楼隔着雾气，像一幅贴得太高的画，够不到。调色褪成旧记忆的样子——青绿的草、泛白的天、潮湿的地砖反光。熟悉，但哪里不对。像小时候某个下午，你确信自己来过这里，却想不起后来去了哪里。整个天台是一句没说完的话。雨走了，孩子也没来。只有秋千停在半途，像某个被按了暂停的童年。' },
     { images: ['media/photo/photo-09.jpg'], title: '风的形状', category: '摄影', meta: '风景 / 风光', concept: '风从不解释自己。它无形无色，不是不想被看见——是它根本不在乎。但风车是它路过人间时留下的唯一可见的轮廓。巨大的叶片划过天空的弧线，一圈一圈，不快不慢，像一座露天的钟表丈量着某种比时间更古老的东西。你站在那里，看不清叶片旋转的速度，只感觉整个天空都在缓慢地转动。风从远方来——穿过山谷、越过田野、掠过城市的屋顶——找到这座风车，推着它转动，像老朋友远远走来、拍了拍你的肩膀。这就是风的形状：不是被看见的东西，而是被承认的东西。闭上眼感受得到它，睁开眼却找不到它。只有那座风车还在转，一圈接一圈，替所有看不见的东西留下形状。' }
   ],
   food: [
