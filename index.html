@@ -590,7 +590,8 @@ footer p{font-size:12px;color:var(--ink-secondary)}
 /* Right: Info — scrollable panel */
 .detail-info-section{
   padding:28px 28px 32px;display:flex;flex-direction:column;gap:0;
-  overflow-y:auto;border-left:1px solid var(--border);
+  overflow-y:auto;min-height:0;
+  border-left:1px solid var(--border);
   background:var(--surface)
 }
 .detail-info-section .di-category{
@@ -611,7 +612,7 @@ footer p{font-size:12px;color:var(--ink-secondary)}
   color:var(--ink-tertiary);margin-bottom:4px
 }
 .detail-info-section .di-text{
-  font-size:13px;color:var(--ink-secondary);line-height:1.8;margin-bottom:14px
+  font-size:13px;color:var(--ink-secondary);line-height:2;margin-bottom:14px
 }
 
 /* Detail placeholder in modal */
@@ -809,8 +810,8 @@ footer p{font-size:12px;color:var(--ink-secondary)}
   .detail-image-section{padding:8px 0;min-height:200px;max-height:40vh}
   .detail-info-section{max-height:45vh;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;padding:20px 20px 28px}
   .detail-image-nav{bottom:8px}
-  .detail-body{grid-template-columns:1fr;max-height:none;overflow:visible}
-  .detail-modal{overflow:visible}
+  .detail-body{grid-template-columns:1fr;max-height:90vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .detail-modal{overflow:hidden}
   .skills-grid{grid-template-columns:repeat(2,1fr)}
   :root{--section-py:80px}
 }
@@ -1306,8 +1307,44 @@ footer p{font-size:12px;color:var(--ink-secondary)}
             <div class="case-more">点击查看详情 →</div>
           </div>
         </div>
+
+        <!-- Entry 2: 自学习机制 -->
+        <div class="case-card reveal d2" onclick="openDetail('automation',1)">
+          <div class="case-image">
+            <img src="media/automation/自学习机制.svg" alt="自学习机制思维导图" loading="lazy">
+          </div>
+          <div class="case-content">
+            <div class="case-cat">AI 知识架构</div>
+            <h3>自学习 · 五级递进系统</h3>
+            <div class="case-tags">
+              <span>Claude Code</span>
+              <span>Prompt Engineering</span>
+              <span>Obsidian</span>
+            </div>
+            <p>通过「改学」指令触发 AI 自主深度学习：自动生成课程表、逐课推进、笔记归档。五级递进体系确保从基础到综合的完整学习闭环，多源验证保障信息质量。</p>
+            <div class="case-more">点击查看详情 →</div>
+          </div>
+        </div>
+
+        <!-- Entry 3: 知识映射库 -->
+        <div class="case-card reveal d3" onclick="openDetail('automation',2)">
+          <div class="case-image">
+            <img src="media/automation/知识映射库.svg" alt="本地知识映射库思维导图" loading="lazy">
+          </div>
+          <div class="case-content">
+            <div class="case-cat">AI 知识架构</div>
+            <h3>本地知识映射库</h3>
+            <div class="case-tags">
+              <span>Claude Code</span>
+              <span>Obsidian</span>
+              <span>知识管理</span>
+            </div>
+            <p>建立 AI 与本地知识库之间的精准映射：领域关键词自动匹配目录，新主题智能分类，跨领域资料合理归档。不乱放、不丢文件，知识库可持续积累。</p>
+            <div class="case-more">点击查看详情 →</div>
+          </div>
+        </div>
       </div>
-      <p style="font-size:12px;color:var(--ink-tertiary);text-align:center;margin-top:24px;letter-spacing:0.06em">更多项目持续建设中</p>
+      <p style="font-size:12px;color:var(--ink-tertiary);text-align:center;margin-top:24px;letter-spacing:0.06em">AI 工作流系列 · 共 3 个项目</p>
     </div>
   </div>
 </section>
@@ -1413,9 +1450,9 @@ footer p{font-size:12px;color:var(--ink-secondary)}
     <p class="section-index reveal">Contact</p>
     <h2 class="section-title reveal">联系我</h2>
     <div class="contact-grid">
-      <a href="mailto:2173714005@qq.com" class="contact-item reveal d1">
+      <a href="mailto:15875574296@163.com" class="contact-item reveal d1">
         <div class="icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg></div>
-        <div><div class="lbl">Email</div><div class="val">2173714005@qq.com</div></div>
+        <div><div class="lbl">Email</div><div class="val">15875574296@163.com</div></div>
       </a>
       <a href="tel:15875574296" class="contact-item reveal d2">
         <div class="icon-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
@@ -1591,6 +1628,24 @@ const workDB = {
       tools: 'N8N · Claude Code · Obsidian · SMTP',
       desc: '搭建了一套模块化的数据工作流，在 N8N 中一键触发后自动执行：多平台（微博、知乎、百度等）热搜数据抓取 → 调用 Claude Code 进行 AI 解读分析 → 生成结构化日报与趋势分析报表。解读完成后通过两条通道分发：自动归档至 Obsidian 本地仓库，同时通过 SMTP 邮件推送至指定邮箱。每日运行一次，触发后全流程无需人工干预。',
       concept: '以「信息减负」为出发点，将每日碎片化的热搜信息通过 AI 结构化处理，提炼出有价值的趋势洞察。系统采用模块化架构——数据抓取层、AI 解读层、输出分发层彼此解耦，新增输出通道无需改动上游逻辑。工作流通过 N8N 可视化编排，配合 Claude Code 的技能体系实现深度 AI 解读，稳定运行数月零故障。'
+    },
+    {
+      images: ['media/automation/自学习机制.svg'],
+      title: '自学习 · 五级递进系统',
+      category: 'AI 知识架构',
+      meta: '2026 · Claude Code',
+      tools: 'Claude Code · Obsidian · Prompt Engineering',
+      desc: '一套 AI 驱动的自主学习协议。说一句「改学[主题]」即可启动完整流程：AI 自动搜索多源资料、生成课程表、按五级递进体系逐课推进并归档至 Obsidian。适用于任何领域的体系化自学——产出的结构化笔记由知识映射库负责索引，后续任务中指哪打哪，不必每次都从零生成。',
+      concept: '• 核心理念：不是让 AI 替用户学，而是让 AI 搭框架、筛资料、追进度<br>• 体系设计：借鉴 Bloom 认知分层，从术语到创造逐层递进<br>• 关键约束：不因追求进度而牺牲信息质量<br>• 确保内容可溯源、可验证、不盲目自信'
+    },
+    {
+      images: ['media/automation/知识映射库.svg'],
+      title: '本地知识映射库',
+      category: 'AI 知识架构',
+      meta: '2026 · Claude Code',
+      tools: 'Claude Code · Obsidian · 知识管理',
+      desc: '通过领域关键词与目录路径的映射关系表，建立 AI 与本地知识库之间的精准导航系统。新主题按三级优先级分类归档，跨领域内容列出候选供用户确认，说「本地数据库」可编辑映射条目。自学习系统产出的笔记库由此被精准定位——让 AI 在任务中始终引用经过验证的本地资料，减少摸黑生成带来的幻觉与 token 浪费。',
+      concept: '• 核心挑战：AI 随意建目录→碎片化，全靠手动→失去自动化价值<br>• 解决方案：半自动分类协议，AI 有自主权但有明确边界<br>• 关键原则：按需取用、不被框死，AI 保持独立判断力<br>• 硬约束：新文件夹必须先问用户，不允许自主猜测'
     }
   ]
 };
@@ -1623,9 +1678,9 @@ function openDetail(cat, idx) {
   descEl.style.display = hasDesc ? '' : 'none';
   toolsLabel.style.display = hasTools ? '' : 'none';
   toolsEl.style.display = hasTools ? '' : 'none';
-  descEl.textContent = item.desc || '';
+  descEl.innerHTML = item.desc || '';
   toolsEl.textContent = item.tools || '';
-  document.getElementById('detailConcept').textContent = item.concept || '';
+  document.getElementById('detailConcept').innerHTML = item.concept || '';
 
   // Handle images
   const imgWrap = document.getElementById('detailImageWrap');

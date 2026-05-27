@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 480" width="100%" height="100%">
+  <rect width="1000" height="480" fill="#ffffff"/>
+  <style>
+    .t  { font-family:'PingFang SC','Microsoft YaHei',sans-serif; font-size:20px; font-weight:bold; fill:#222; }
+    .st { font-family:'Helvetica Neue',Arial,sans-serif; font-size:11px; fill:#999; letter-spacing:0.05em; }
+    .mt { font-family:'PingFang SC','Microsoft YaHei',sans-serif; font-size:15px; font-weight:bold; fill:#222; }
+    .stx { font-family:'PingFang SC','Microsoft YaHei',sans-serif; font-size:13px; fill:#333; }
+    .sst { font-family:'Helvetica Neue',Arial,sans-serif; font-size:10px; fill:#888; }
+    .dot { fill:#bbb; }
+
+    /* Title */
+    .bx-t  { fill:#F5F0E8; stroke:#444; stroke-width:2; rx:4; }
+
+    /* Col 1 — Steel Blue */
+    .c1-b  { fill:#EDF2F7; stroke:#4A7FA5; stroke-width:1.5; rx:4; }
+    .c1-s  { fill:#fff; stroke:#A3BDD4; stroke-width:1; rx:3; }
+    .c1-l  { fill:none; stroke:#A3BDD4; stroke-width:1; }
+
+    /* Col 2 — Ochre Gold */
+    .c2-b  { fill:#F6F0E0; stroke:#B8913E; stroke-width:1.5; rx:4; }
+    .c2-s  { fill:#fff; stroke:#D4C49A; stroke-width:1; rx:3; }
+    .c2-l  { fill:none; stroke:#D4C49A; stroke-width:1; }
+    .c2-d  { fill:#B8913E; }
+
+    /* Col 3 — Sage */
+    .c3-b  { fill:#EDF3EF; stroke:#5F8B7A; stroke-width:1.5; rx:4; }
+    .c3-s  { fill:#fff; stroke:#A3C0B5; stroke-width:1; rx:3; }
+    .c3-l  { fill:none; stroke:#A3C0B5; stroke-width:1; }
+
+    /* Main connector */
+    .ln { fill:none; stroke:#bbb; stroke-width:1.5; }
+  </style>
+
+  <!-- Title -->
+  <rect x="370" y="28" width="260" height="44" rx="4" class="bx-t"/>
+  <text x="500" y="56" text-anchor="middle" class="t">自学习机制</text>
+  <text x="500" y="90" text-anchor="middle" class="st">AI-PROGRESSIVE LEARNING SYSTEM</text>
+
+  <!-- Connectors -->
+  <path d="M 500 72 L 500 82" class="ln"/>
+  <path d="M 500 82 L 160 82 L 160 98" class="ln"/>
+  <path d="M 500 82 L 500 98" class="ln"/>
+  <path d="M 500 82 L 840 82 L 840 98" class="ln"/>
+
+  <!-- ===== Col 1: 触发与执行 ===== -->
+  <rect x="50" y="98" width="220" height="40" rx="4" class="c1-b"/>
+  <text x="160" y="124" text-anchor="middle" class="mt">触发与执行流程</text>
+
+  <path d="M 160 138 L 160 158" class="c1-l"/>
+  <rect x="70" y="158" width="180" height="34" rx="3" class="c1-s"/>
+  <text x="160" y="180" text-anchor="middle" class="stx">说「改学[主题]」</text>
+
+  <path d="M 160 192 L 160 210" class="c1-l"/>
+  <rect x="70" y="210" width="180" height="34" rx="3" class="c1-s"/>
+  <text x="160" y="232" text-anchor="middle" class="stx">搜索 → 生成课程表</text>
+
+  <path d="M 160 244 L 160 262" class="c1-l"/>
+  <rect x="70" y="262" width="180" height="34" rx="3" class="c1-s"/>
+  <text x="160" y="284" text-anchor="middle" class="stx">每日推进一课</text>
+
+  <path d="M 160 296 L 160 314" class="c1-l"/>
+  <rect x="70" y="314" width="180" height="34" rx="3" class="c1-s"/>
+  <text x="160" y="336" text-anchor="middle" class="stx">更新进度追踪</text>
+
+  <!-- ===== Col 2: 五级递进 ===== -->
+  <rect x="380" y="98" width="240" height="40" rx="4" class="c2-b"/>
+  <text x="500" y="124" text-anchor="middle" class="mt">五级递进学习体系</text>
+
+  <path d="M 500 138 L 500 158" class="c2-l"/>
+  <rect x="400" y="158" width="200" height="34" rx="3" class="c2-s"/>
+  <text x="500" y="172" text-anchor="middle" class="stx">基础</text>
+  <text x="500" y="186" text-anchor="middle" class="sst">Foundation — 术语与核心框架</text>
+
+  <circle cx="500" cy="207" r="3" class="c2-d"/>
+
+  <rect x="400" y="215" width="200" height="34" rx="3" class="c2-s"/>
+  <text x="500" y="229" text-anchor="middle" class="stx">分析</text>
+  <text x="500" y="243" text-anchor="middle" class="sst">Analysis — 对比与矛盾点</text>
+
+  <circle cx="500" cy="264" r="3" class="c2-d"/>
+
+  <rect x="400" y="272" width="200" height="34" rx="3" class="c2-s"/>
+  <text x="500" y="286" text-anchor="middle" class="stx">应用</text>
+  <text x="500" y="300" text-anchor="middle" class="sst">Application — 映射实际场景</text>
+
+  <circle cx="500" cy="321" r="3" class="c2-d"/>
+
+  <rect x="400" y="329" width="200" height="34" rx="3" class="c2-s"/>
+  <text x="500" y="343" text-anchor="middle" class="stx">创造</text>
+  <text x="500" y="357" text-anchor="middle" class="sst">Creation — 可执行策略产出</text>
+
+  <circle cx="500" cy="378" r="3" class="c2-d"/>
+
+  <rect x="400" y="386" width="200" height="34" rx="3" class="c2-s"/>
+  <text x="500" y="400" text-anchor="middle" class="stx">综合</text>
+  <text x="500" y="414" text-anchor="middle" class="sst">Synthesis — 知识整合与盲区识别</text>
+
+  <!-- ===== Col 3: 质量保障 ===== -->
+  <rect x="730" y="98" width="220" height="40" rx="4" class="c3-b"/>
+  <text x="840" y="124" text-anchor="middle" class="mt">质量控制体系</text>
+
+  <path d="M 840 138 L 840 158" class="c3-l"/>
+  <rect x="750" y="158" width="180" height="34" rx="3" class="c3-s"/>
+  <text x="840" y="180" text-anchor="middle" class="stx">多源交叉验证</text>
+
+  <path d="M 840 192 L 840 210" class="c3-l"/>
+  <rect x="750" y="210" width="180" height="34" rx="3" class="c3-s"/>
+  <text x="840" y="232" text-anchor="middle" class="stx">置信度标注</text>
+
+  <path d="M 840 244 L 840 262" class="c3-l"/>
+  <rect x="750" y="262" width="180" height="34" rx="3" class="c3-s"/>
+  <text x="840" y="284" text-anchor="middle" class="stx">时效性检查</text>
+
+  <path d="M 840 296 L 840 314" class="c3-l"/>
+  <rect x="750" y="314" width="180" height="34" rx="3" class="c3-s"/>
+  <text x="840" y="336" text-anchor="middle" class="stx">观点多元化</text>
+
+  <!-- Bottom -->
+  <text x="500" y="464" text-anchor="middle" class="sst" fill="#bbb">产出：核心内容 · 关键洞察 · 应用场景 · 待解问题 · 关联笔记 · 一句话总结</text>
+</svg>

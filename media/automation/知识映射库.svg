@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 480" width="100%" height="100%">
+  <rect width="1000" height="480" fill="#ffffff"/>
+  <style>
+    .t  { font-family:'PingFang SC','Microsoft YaHei',sans-serif; font-size:20px; font-weight:bold; fill:#222; }
+    .st { font-family:'Helvetica Neue',Arial,sans-serif; font-size:11px; fill:#999; letter-spacing:0.05em; }
+    .mt { font-family:'PingFang SC','Microsoft YaHei',sans-serif; font-size:15px; font-weight:bold; fill:#222; }
+    .stx { font-family:'PingFang SC','Microsoft YaHei',sans-serif; font-size:13px; fill:#333; }
+    .sst { font-family:'Helvetica Neue',Arial,sans-serif; font-size:10px; fill:#888; }
+
+    /* Title */
+    .bx-t  { fill:#F5F0E8; stroke:#444; stroke-width:2; rx:4; }
+
+    /* Col 1 — Steel Blue */
+    .c1-b  { fill:#EDF2F7; stroke:#4A7FA5; stroke-width:1.5; rx:4; }
+    .c1-s  { fill:#fff; stroke:#A3BDD4; stroke-width:1; rx:3; }
+    .c1-l  { fill:none; stroke:#A3BDD4; stroke-width:1; }
+
+    /* Col 2 — Ochre Gold */
+    .c2-b  { fill:#F6F0E0; stroke:#B8913E; stroke-width:1.5; rx:4; }
+    .c2-s  { fill:#fff; stroke:#D4C49A; stroke-width:1; rx:3; }
+    .c2-l  { fill:none; stroke:#D4C49A; stroke-width:1; }
+
+    /* Col 3 — Sage */
+    .c3-b  { fill:#EDF3EF; stroke:#5F8B7A; stroke-width:1.5; rx:4; }
+    .c3-s  { fill:#fff; stroke:#A3C0B5; stroke-width:1; rx:3; }
+    .c3-l  { fill:none; stroke:#A3C0B5; stroke-width:1; }
+
+    .ln { fill:none; stroke:#bbb; stroke-width:1.5; }
+  </style>
+
+  <!-- Title -->
+  <rect x="350" y="28" width="300" height="44" rx="4" class="bx-t"/>
+  <text x="500" y="56" text-anchor="middle" class="t">本地知识映射库</text>
+  <text x="500" y="90" text-anchor="middle" class="st">KNOWLEDGE MAPPING &amp; CLASSIFICATION SYSTEM</text>
+
+  <!-- Connectors -->
+  <path d="M 500 72 L 500 82" class="ln"/>
+  <path d="M 500 82 L 160 82 L 160 98" class="ln"/>
+  <path d="M 500 82 L 500 98" class="ln"/>
+  <path d="M 500 82 L 840 82 L 840 98" class="ln"/>
+
+  <!-- ===== Col 1: 映射规则 ===== -->
+  <rect x="60" y="98" width="200" height="40" rx="4" class="c1-b"/>
+  <text x="160" y="124" text-anchor="middle" class="mt">映射规则</text>
+
+  <path d="M 160 138 L 160 158" class="c1-l"/>
+  <rect x="70" y="158" width="180" height="34" rx="3" class="c1-s"/>
+  <text x="160" y="180" text-anchor="middle" class="stx">领域 → 目录映射表</text>
+
+  <path d="M 160 192 L 160 210" class="c1-l"/>
+  <rect x="70" y="210" width="180" height="34" rx="3" class="c1-s"/>
+  <text x="160" y="232" text-anchor="middle" class="stx">新主题自动分类</text>
+
+  <path d="M 160 244 L 160 262" class="c1-l"/>
+  <rect x="70" y="262" width="180" height="34" rx="3" class="c1-s"/>
+  <text x="160" y="284" text-anchor="middle" class="stx">跨领域候选机制</text>
+
+  <path d="M 160 296 L 160 314" class="c1-l"/>
+  <rect x="70" y="314" width="180" height="34" rx="3" class="c1-s"/>
+  <text x="160" y="336" text-anchor="middle" class="stx">可编辑维护模式</text>
+
+  <!-- ===== Col 2: 分类优先级 ===== -->
+  <rect x="390" y="98" width="220" height="40" rx="4" class="c2-b"/>
+  <text x="500" y="124" text-anchor="middle" class="mt">分类优先级规则</text>
+
+  <path d="M 500 138 L 500 158" class="c2-l"/>
+  <rect x="410" y="158" width="180" height="44" rx="3" class="c2-s"/>
+  <text x="500" y="176" text-anchor="middle" class="stx" style="font-weight:bold;">优先：有映射直接使用</text>
+  <text x="500" y="192" text-anchor="middle" class="sst">映射表中有对应目录</text>
+
+  <path d="M 500 202 L 500 220" class="c2-l"/>
+  <rect x="410" y="220" width="180" height="44" rx="3" class="c2-s"/>
+  <text x="500" y="238" text-anchor="middle" class="stx" style="font-weight:bold;">次选：找最合适目录</text>
+  <text x="500" y="254" text-anchor="middle" class="sst">列出候选确认后归类</text>
+
+  <path d="M 500 264 L 500 282" class="c2-l"/>
+  <rect x="410" y="282" width="180" height="44" rx="3" class="c2-s"/>
+  <text x="500" y="300" text-anchor="middle" class="stx" style="font-weight:bold;">末选：新建独立目录</text>
+  <text x="500" y="316" text-anchor="middle" class="sst">用户选定后执行创建</text>
+
+  <!-- ===== Col 3: 参考原则 ===== -->
+  <rect x="730" y="98" width="220" height="40" rx="4" class="c3-b"/>
+  <text x="840" y="124" text-anchor="middle" class="mt">参考原则</text>
+
+  <path d="M 840 138 L 840 158" class="c3-l"/>
+  <rect x="750" y="158" width="180" height="34" rx="3" class="c3-s"/>
+  <text x="840" y="180" text-anchor="middle" class="stx">每次任务扫描发现</text>
+
+  <path d="M 840 192 L 840 210" class="c3-l"/>
+  <rect x="750" y="210" width="180" height="34" rx="3" class="c3-s"/>
+  <text x="840" y="232" text-anchor="middle" class="stx">按需取用不被框死</text>
+
+  <path d="M 840 244 L 840 262" class="c3-l"/>
+  <rect x="750" y="262" width="180" height="34" rx="3" class="c3-s"/>
+  <text x="840" y="284" text-anchor="middle" class="stx">AI 保持独立判断力</text>
+
+  <path d="M 840 296 L 840 314" class="c3-l"/>
+  <rect x="750" y="314" width="180" height="34" rx="3" class="c3-s"/>
+  <text x="840" y="336" text-anchor="middle" class="stx">「本地数据库」维护模式</text>
+
+  <!-- Bottom -->
+  <text x="500" y="464" text-anchor="middle" class="sst" fill="#bbb">硬约束：创建新文件夹前必须先问用户，不允许自主猜测</text>
+</svg>
